@@ -3,7 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Eletro Quest – Transpetro 2026.4</title>
+<title>Eletro Quest – Transpetro</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#d97706">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 :root{--bg:#f3f5fa;--sf:#fff;--tx:#14213d;--mut:#5b6785;--ac:#d97706;--ok:#168a4d;--bad:#c8283f;--bd:#d3d9e8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0d1322;--sf:#18203a;--tx:#e8ecf8;--mut:#9aa6c6;--ac:#fbbf24;--ok:#3ddc84;--bad:#ff6b81;--bd:#2c3760}}
@@ -12,20 +17,20 @@
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 #app{max-width:640px;margin:0 auto;padding:14px}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:16px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:15px}
 .top div{display:flex;flex-direction:column;align-items:flex-end}
-.top span{color:var(--ac);font-weight:700;font-size:13px}
+.top span{color:var(--ac);font-weight:700;font-size:12px}
 .card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}
 h3{margin:0 0 4px}p{margin:6px 0;color:var(--mut)}
 button{font:inherit;color:var(--tx);background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;cursor:pointer;margin:3px 3px 3px 0}
 button:hover{border-color:var(--ac)}
-.row{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.row{display:flex;flex-wrap:wrap}
 .prim{background:var(--ac);color:#111;border:0;font-weight:700}
 .q{color:var(--tx);font-weight:600;font-size:17px}.q small{color:var(--ac);font-weight:700}
-.opt{display:block;width:100%;text-align:left;margin:6px 0}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;font-size:15px}
 .opt.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
 .opt.bad{background:var(--bad);color:#fff;border-color:var(--bad)}
-.ex{background:var(--bg);border-radius:10px;padding:8px 10px;color:var(--tx)}
+.ex{background:var(--bg);border-radius:10px;padding:8px 10px;color:var(--tx);font-size:14px;margin-top:8px}
 .bars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;font-size:14px}
 .bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden;margin-top:4px}
 .bar i{display:block;height:100%;background:var(--ok);transition:width .4s}.bar i.m{background:var(--bad)}
@@ -37,45 +42,38 @@ button:hover{border-color:var(--ac)}
 .lane{position:relative;height:56px;background:var(--bg);border:1px dashed var(--bd);border-radius:10px;margin:8px 0 12px;overflow:hidden}
 .lane b{position:absolute;top:10px;font-size:26px;transition:left 1s linear}
 .lane .base{right:6px}
-.badge{display:inline-block;background:var(--ac);color:#111;font-weight:700;font-size:12px;padding:2px 8px;border-radius:6px;margin-bottom:6px}
+.badge{display:inline-block;background:var(--ac);color:#111;font-weight:700;font-size:11px;padding:2px 8px;border-radius:6px;margin-bottom:6px}
 .stat-bar{display:flex;justify-content:space-between;align-items:center;margin:6px 0;font-size:14px}
 .stat-track{flex-grow:1;height:8px;background:var(--bd);border-radius:4px;margin:0 10px;overflow:hidden}
 .stat-fill{height:100%;background:var(--ac)}
 .stat-fill.bad{background:var(--bad)}
-.alert-box{padding:10px;border-radius:8px;margin:10px 0;font-size:13px;line-height:1.4}
-.alert-box.bad{background:rgba(200,40,63,0.15);border:1px solid var(--bad);color:var(--bad)}
-.alert-box.good{background:rgba(22,138,77,0.15);border:1px solid var(--ok);color:var(--ok)}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <script>
 const TH={
-  C:"Circuitos Elétricos",
-  M:"Máquinas Elétricas",
-  S:"Sistemas de Potência",
-  E:"Eletrônica",
-  N:"NR-10 e Segurança",
-  POR:"Língua Portuguesa (Gerais)",
-  ING:"Língua Inglesa (Gerais)"
+  "Teoria de Circuitos": "Teoria de Circuitos",
+  "Máquinas Elétricas": "Máquinas Elétricas",
+  "Sistemas de Potência": "Sistemas de Potência",
+  "Instalações e Subestações": "Instalações e Subestações",
+  "Automação e Controle": "Automação e Controle"
 };
 
 const MON={
-  C:"Curto-Circuito Sombrio",
-  M:"Rotor Travado",
-  S:"Blackout Supremo",
-  E:"Diodo Rebelde",
-  N:"Fiscal do Risco",
-  POR:"Sintaxe Obscura",
-  ING:"False Friend Overload"
+  "Teoria de Circuitos": "Curto-Circuito Sombrio",
+  "Máquinas Elétricas": "Rotor Travado",
+  "Sistemas de Potência": "Blackout Supremo",
+  "Instalações e Subestações": "Fiscal do Risco",
+  "Automação e Controle": "Diodo Rebelde"
 };
 
 const RANKS = [
   {min: 0, title: "Engenheiro Trainee"},
-  {min: 100, title: "Engenheiro Júnior"},
-  {min: 300, title: "Engenheiro Pleno"},
-  {min: 600, title: "Engenheiro Sênior"},
-  {min: 1000, title: "Engenheiro Especialista Transpetro"}
+  {min: 150, title: "Engenheiro Júnior"},
+  {min: 400, title: "Engenheiro Pleno"},
+  {min: 800, title: "Engenheiro Sênior"},
+  {min: 1300, title: "Especialista Transpetro"}
 ];
 
 function getRank(xp) {
@@ -86,56 +84,439 @@ function getRank(xp) {
   return current;
 }
 
-/* Banco de Questões - Específicas e Gerais (Cesgranrio/Transpetro 2026.4) */
+/* Banco com 60 Questões (50 Cesgranrio + 10 Transpetro/Industrial) */
 const Q=[
-["C","Potência ativa (W) em circuito CA monofásico senoidal:","P = V·I·cos φ","P = V·I·sen φ","P = V·I","P = V²·X","S = V·I (aparente); Q = V·I·sen φ (reativa)."],
-["C","Constante de tempo de um circuito RL série:","τ = L/R","τ = R·L","τ = R/L","τ = √(LC)","No RL, τ = L/R; no RC, τ = R·C."],
-["C","Frequência de ressonância de um circuito RLC série:","f = 1/(2π√(LC))","f = 2π√(LC)","f = 1/(2πRC)","f = R/(2πL)","Na ressonância XL = XC."],
-["C","Em ligação Y equilibrada, a relação entre tensão de linha e de fase é:","VL = √3·Vf","VL = Vf","VL = Vf/√3","VL = 3·Vf","Em Δ, VL = Vf e IL = √3·If."],
-["C","O equivalente de Thévenin é composto por:","Fonte de tensão em série com resistência","Fonte de corrente em paralelo com resistência","Duas fontes em paralelo","Capacitor em paralelo com resistência","A fonte de corrente em paralelo é o equivalente de Norton."],
-["M","Velocidade síncrona (rpm) de uma máquina CA com p polos:","ns = 120·f/p","ns = 60·p/f","ns = f/(120·p)","ns = 120·p/f","Ex.: 60 Hz, 4 polos → 1800 rpm."],
-["M","Escorregamento do motor de indução:","s = (ns − n)/ns","s = (n − ns)/ns","s = n/ns","s = ns/(ns − n)","Em plena carga, s costuma ficar entre 2% e 6%."],
-["M","Transformador ideal: relação entre tensões, espiras e correntes:","V1/V2 = N1/N2 = I2/I1","V1/V2 = N1/N2 = I1/I2","V1/V2 = N2/N1 = I2/I1","V1·I2 = V2·I1","A potência se conserva: V1·I1 = V2·I2."],
-["M","Em motor CC com excitação independente, para operar acima da velocidade nominal:","Enfraquecer o campo (reduzir o fluxo)","Aumentar o fluxo de campo","Reduzir a tensão de armadura","Inverter a polaridade da armadura","n = (V − Ra·Ia)/(k·Φ): menor Φ, maior n."],
-["S","Potência de curto-circuito trifásico (tensão de linha Vn):","Scc = √3·Vn·Icc","Scc = Vn·Icc·cos φ","Scc = Vn²·Icc","Scc = 3·Vn/Icc","Resulta em MVA se Vn em kV e Icc em kA."],
-["S","No sistema por unidade (pu), a impedância de base é:","Zbase = Vbase²/Sbase","Zbase = Sbase²/Vbase","Zbase = Vbase·Sbase","Zbase = Vbase/Sbase²","Com Vbase de linha e Sbase trifásica."],
-["S","A falta mais frequente em sistemas de potência é:","Monofásica à terra","Trifásica simétrica","Bifásica isolada","Trifásica à terra","Faltas monofásicas respondem pela maioria das ocorrências."],
-["S","Em uma falta trifásica equilibrada, existe apenas a sequência:","Positiva","Negativa","Zero","Negativa e zero","Sequências negativa e zero surgem em faltas desequilibradas."],
-["S","Para corrigir baixo fator de potência de carga indutiva, usa-se:","Banco de capacitores em paralelo","Reatores em série","Resistores em paralelo","Elevação da tensão da carga","Capacitores fornecem potência reativa à carga."],
-["E","Ganho de tensão do amp-op inversor ideal:","Av = −Rf/Rin","Av = 1 + Rf/Rin","Av = Rf/Rin","Av = −Rin/Rf","O não inversor tem Av = 1 + Rf/R1."],
-["E","Tensão média na saída de um retificador de onda completa ideal (pico Vp):","2·Vp/π","Vp/π","Vp/2","Vp/√2","Meia onda: Vp/π."],
-["E","BJT na região ativa direta:","BE diretamente polarizada e BC reversa","BE e BC diretas","BE e BC reversas","BE reversa e BC direta","Saturação: ambas diretas. Corte: ambas reversas."],
-["E","O diodo Zener é usado principalmente como:","Regulador de tensão, operando em reversa","Retificador de potência","Amplificador de sinal","Oscilador","Opera na região de ruptura (Zener/avalanche)."],
-["N","A NR-10 exige curso básico de segurança em instalações elétricas com carga mínima de:","40 horas","20 horas","80 horas","16 horas","O complementar SEP também tem 40 horas."],
-["N","Na desenergização (NR-10), a primeira etapa da sequência é:","Seccionamento","Aterramento temporário","Constatação da ausência de tensão","Sinalização de impedimento","Ordem: seccionamento, impedimento de reenergização, ausência de tensão, aterramento, proteção da zona controlada, sinalização."],
-["N","O Prontuário das Instalações Elétricas é obrigatório acima de carga instalada de:","75 kW","50 kW","100 kW","10 kW","Abaixo disso, exige-se a documentação das instalações."],
-["N","As distâncias da zona de risco e da zona controlada dependem de:","Tensão nominal da instalação","Corrente nominal","Potência instalada","Frequência da rede","Anexo da NR-10: faixas de tensão × distâncias."],
-// Questões de Conhecimentos Gerais (Língua Portuguesa)
-["POR","No trecho 'Embora a automação exija investimento elevado, o retorno operacional é garantido', a conjunção sublinhada estabelece relação de:","Concessão","Causa","Consequência","Condição","A não ser que, 'embora' introduz ideia de concessão (oposição que não anula a oração principal)."],
-["POR","Assinale a opção em que a regência verbal atende à norma-padrão da Língua Portuguesa:","O engenheiro aspirava ao cargo de especialista.","Ele preferia mais o trabalho de campo do que o escritório.","A equipe obedeceu o regulamento de segurança.","Esta é a norma que o técnico se referiu.","Aspirar no sentido de desejar exige preposição 'a'. Preferir exige 'a' (preferia A a B). Obedecer exige 'a'."],
-["POR","A crase está empregada corretamente em:","O relatório foi entregue à diretoria da Transpetro.","O técnico começou à estudar o edital.","A reunião foi marcada à partir das 14h.","Ele fez referência à uma norma antiga.","'À diretoria' (preposição a + artigo a). Antes de verbo (estudar), expressão 'a partir' e artigo indefinido (uma) não ocorre crase."],
-// Questões de Conhecimentos Gerais (Língua Inglesa)
-["ING","In the sentence 'The circuit breaker tripped immediately due to an overload condition', the verb 'tripped' means:","Opened or disconnected the circuit","Closed the electrical connection","Recharged the battery system","Increased the supply voltage","In electrical engineering, 'to trip' means to automatically open a breaker to clear a fault or overload."],
-["ING","Choose the connective that correctly expresses a contrast in: 'The maintenance was rigorous; ____, a minor fault occurred.'","however","therefore","furthermore","instead","'However' introduces a contrast/adversative idea (no entanto/porém). 'Therefore' is conclusive."],
-["ING","In technical documentation, the term 'fault current' refers to:","An abnormal current flowing during an electrical short-circuit","The nominal working current of the motor","The reactive current supplied by capacitors","The current consumed during standby mode","'Fault current' is the current that flows during an insulation breakdown or short-circuit event."]
+  {
+    t: "Teoria de Circuitos",
+    q: "Em um circuito CA senoidal trifásico equilibrado, uma carga conectada em triângulo (Δ) absorve uma potência ativa total de 12 kW com fator de potência 0,8 atrasado. A tensão de linha alimentadora é de 220 V eficazes. Se essa mesma carga for reconectada em estrela (Y) na mesma rede elétrica, a nova potência ativa total absorvida pelo circuito será de:",
+    a: "4 kW",
+    w: ["6 kW", "12 kW", "20,8 kW", "36 kW"],
+    e: "Na ligação Δ, a impedância por fase Z_Δ está submetida à tensão de linha V_L. Na ligação Y, a mesma impedância fica submetida à tensão de fase V_F = V_L/√3. Assim, P_Y = P_Δ / 3 = 12 kW / 3 = 4 kW."
+  },
+  {
+    t: "Teoria de Circuitos",
+    q: "Um circuito RLC série alimentado por uma fonte de tensão senoidal v(t) = 100√2 sin(1000t) V possui R = 10 Ω, L = 20 mH e C = 50 μF. O fator de qualidade (Q) desse circuito ressonante e a corrente eficaz na frequência de ressonância são, respectivamente:",
+    a: "Q = 2; I = 10 A",
+    w: ["Q = 0,5; I = 10 A", "Q = 2; I = 14,14 A", "Q = 5; I = 10 A", "Q = 1; I = 7,07 A"],
+    e: "X_L = ωL = 20 Ω e X_C = 1/(ωC) = 20 Ω. Fator de qualidade Q = X_L / R = 20/10 = 2. Como X_L = X_C, Z = R = 10 Ω. I = 100/10 = 10 A."
+  },
+  {
+    t: "Teoria de Circuitos",
+    q: "Considere um circuito elétrico composto por uma fonte de tensão CC ideal de 50 V em série com um chaveador, um resistor de 10 Ω e um indutor de 2 H desenergizado. No instante t = 0, a chave é fechada. A taxa de variação temporal da corrente (di/dt) no instante exato t = 0+ e o valor final da corrente em regime permanente (t → ∞) são:",
+    a: "25 A/s e 5 A",
+    w: ["0 A/s e 5 A", "25 A/s e 0 A", "50 A/s e 5 A", "10 A/s e 2,5 A"],
+    e: "Em t = 0+, i(0+) = 0. Toda a tensão cai sobre o indutor: v_L = L(di/dt) = 50 → di/dt = 50/2 = 25 A/s. Em regime permanente, o indutor é curto-circuito: I = 50/10 = 5 A."
+  },
+  {
+    t: "Teoria de Circuitos",
+    q: "Um circuito linear de dois terminais A e B alimenta uma carga resistiva variável R_L. Sabendo que com R_L = 10 Ω a tensão nos terminais A-B é 20 V, e com R_L = 30 Ω a tensão nos terminais A-B passa para 30 V, os valores do equivalente de Thévenin (V_th e R_th) vistos a partir de A-B são:",
+    a: "Vth = 40 V e Rth = 10 Ω",
+    w: ["Vth = 60 V e Rth = 20 Ω", "Vth = 40 V e Rth = 20 Ω", "Vth = 50 V e Rth = 15 Ω", "Vth = 30 V e Rth = 10 Ω"],
+    e: "Aplicando o divisor de tensão para os dois casos: 20 = V_th·(10/(R_th+10)) e 30 = V_th·(30/(R_th+30)), resultando em R_th = 10 Ω e V_th = 40 V."
+  },
+  {
+    t: "Teoria de Circuitos",
+    q: "Em um sistema trifásico a quatro fios com sequência de fase positiva (ABC), as tensões de fase aplicadas a uma carga conectada em estrela são V_AN = 120∠0° V, V_BN = 120∠-120° V e V_CN = 120∠120° V. A tensão de linha V_AB é dada por:",
+    a: "207,8∠30° V",
+    w: ["120∠30° V", "207,8∠-30° V", "120∠-30° V", "207,8∠0° V"],
+    e: "V_AB = V_AN - V_BN = 120∠0° - 120∠-120° = 207,85∠30° V."
+  },
+  {
+    t: "Teoria de Circuitos",
+    q: "Um capacitor não puramente dielétrico de 10 μF opera sob uma fonte senoidal de 100 V (eficaz) e frequência f = 500/π Hz. Sabendo que a potência ativa dissipada no capacitor devido às perdas no dielétrico é de 50 W, o fator de potência do dispositivo é igual a:",
+    a: "0,05",
+    w: ["0,10", "0,50", "0,707", "0,866"],
+    e: "ω = 1000 rad/s. X_C = 100 Ω. Potência aparente S ≈ 1000 VA. FP = P / S = 50 / 1000 = 0,05."
+  },
+  {
+    t: "Teoria de Circuitos",
+    q: "A resposta em frequência de um filtro passivo possui a função de transferência H(s) = 100s / (s² + 10s + 10000). Trata-se de um filtro do tipo:",
+    a: "Passa-faixa de 2ª ordem",
+    w: ["Passa-baixas de 1ª ordem", "Passa-altas de 2ª ordem", "Rejeita-faixa de 2ª ordem", "Passa-tudo de 2ª ordem"],
+    e: "A forma padrão com termo s no numerador e polinômio quadrático no denominador representa um filtro passa-faixa (band-pass)."
+  },
+  {
+    t: "Teoria de Circuitos",
+    q: "Determinado circuito possui uma impedância equivalente dada por Z(s) = (2s + 8)/(s + 1). Aplica-se a este circuito um degrau unitário de corrente i(t) = u(t) A. A expressão da tensão v(t) nos terminais do circuito para t > 0 é:",
+    a: "v(t) = 8 + 6e^(-t) V",
+    w: ["v(t) = 2 + 6e^(-t) V", "v(t) = 8 - 6e^(-t) V", "v(t) = 2δ(t) + 6e^(-t) V", "v(t) = 6 + 2e^(-t) V"],
+    e: "V(s) = Z(s)/s = (2s + 8)/[s(s+1)] = 8/s - 6/(s+1). Aplicando a inversa de Laplace, obtém-se v(t) = 8 - 6e^(-t)."
+  },
+  {
+    t: "Teoria de Circuitos",
+    q: "Dois acoplamentos indutivos em série com indutâncias L_1 = 4 H e L_2 = 9 H possuem coeficiente de acoplamento magnético k = 0,5. A indutância equivalente da associação quando os enrolamentos estão em arranjo aditivo é:",
+    a: "19 H",
+    w: ["13 H", "16 H", "25 H", "7 H"],
+    e: "M = k√(L1·L2) = 0,5·√(36) = 3 H. Associação aditiva: L_eq = L1 + L2 + 2M = 4 + 9 + 6 = 19 H."
+  },
+  {
+    t: "Teoria de Circuitos",
+    q: "Em relação aos teoremas de circuitos, a máxima transferência de potência ativa a uma carga Z_L = R_L + jX_L conectada a um equivalente de Thévenin Z_th = R_th + jX_th ocorre quando:",
+    a: "RL = Rth e XL = -Xth",
+    w: ["RL = Rth e XL = Xth", "RL = √(Rth² + Xth²) e XL = 0", "RL = 0 e XL = -Xth", "RL = Rth / 2 e XL = -Xth / 2"],
+    e: "Para máxima transferência de potência CA complexa, a carga deve ser o conjugado complexo da impedância de Thévenin: Z_L = Z_th*."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "Um motor de indução trifásico de 6 polos, 60 Hz, opera com um escorregamento nominal de 5%. A frequência das correntes induzidas no rotor e a velocidade de rotação do eixo são, respectivamente:",
+    a: "3 Hz e 1140 rpm",
+    w: ["6 Hz e 1200 rpm", "3 Hz e 1200 rpm", "60 Hz e 1140 rpm", "1,8 Hz e 1170 rpm"],
+    e: "n_s = (120·60)/6 = 1200 rpm. Frequência rotórica f_r = s·f = 0,05·60 = 3 Hz. n = n_s(1 - s) = 1140 rpm."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "Um transformador monofásico de 100 kVA, 10000/200 V, 60 Hz apresentou: A vazio (baixa tensão): 200 V, 10 A, 400 W. Curto-circuito (alta tensão): 500 V, 10 A, 1000 W. As perdas no ferro e no cobre a plena carga são, respectivamente:",
+    a: "400 W e 1000 W",
+    w: ["1000 W e 400 W", "400 W e 500 W", "1000 W e 1000 W", "2000 W e 400 W"],
+    e: "O ensaio a vazio mede as perdas no núcleo (400 W). O ensaio em curto-circuito na corrente nominal mede as perdas no cobre a plena carga (1000 W)."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "O controle de velocidade de um motor de indução trifásico por inversor de frequência operando com controle V/f constante busca manter inalterado na máquina o seguinte parâmetro:",
+    a: "O fluxo magnético no entreferro",
+    w: ["O escorregamento percentual", "A corrente de estator", "A reatância de dispersão", "O fator de potência nominal"],
+    e: "Manter a relação V/f constante garante fluxo magnético constante, evitando a saturação do núcleo magnético."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "Um gerador síncrono trifásico conectado a um barramento infinito operando com fator de potência unitário tem sua corrente de excitação de campo (I_f) aumentada. O efeito imediato desse aumento é:",
+    a: "Fornecimento de potência reativa indutiva à rede.",
+    w: ["Aumento da potência ativa e da velocidade.", "Fornecimento de potência reativa capacitiva.", "Diminuição da potência ativa e do ângulo de carga.", "Aumento da frequência da tensão gerada."],
+    e: "Aumentar a excitação de campo (sobre-excitação) faz o gerador injetar potência reativa indutiva (corrente atrasada) na rede."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "Um motor CC com excitação independente possui R_a = 0,5 Ω. Alimentado por 200 V, I_a = 40 A. Se a carga mecânica cair até I_a = 10 A, mantendo o fluxo constante, a variação percentual da velocidade será aproximadamente de:",
+    a: "Aumento de 8,3%",
+    w: ["Aumento de 15,0%", "Redução de 8,3%", "Aumento de 5,0%", "Redução de 5,0%"],
+    e: "E_a1 = 200 - 20 = 180 V. E_a2 = 200 - 5 = 195 V. Razão n2/n1 = 195/180 = 1,0833 (aumento de 8,33%)."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "Três transformadores monofásicos idênticos de 50 kVA, 13800/220 V são conectados em bancada trifásica Δ-Y. A relação entre a tensão de linha primária e secundária (V_L,pri / V_L,sec) é:",
+    a: "36,2",
+    w: ["62,7", "108,6", "20,8", "60,0"],
+    e: "Relação de espiras a = 13800/220 = 62,727. Na ligação Δ-Y, V_L,pri / V_L,sec = a / √3 = 62,727 / 1,732 = 36,22."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "Qual método de partida para motores de indução trifásicos proporciona a maior redução de corrente na rede para um mesmo torque de partida devido à transformação de tensão?",
+    a: "Chave Compensadora (Autotransformador)",
+    w: ["Partida direta", "Chave Estrela-Triângulo", "Soft-starter por rampa de tensão", "Resistores em série com o estator"],
+    e: "O autotransformador reduz a corrente da rede pelo quadrado da relação de tap, otimizando a relação torque/corrente."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "A Curva 'V' de um motor síncrono representa a relação graficamente estabelecida entre quais variáveis da máquina operando com carga constante?",
+    a: "Corrente de estator vs. corrente de campo (excitação)",
+    w: ["Corrente de estator vs. velocidade", "Potência ativa vs. ângulo de carga", "Torque elétrico vs. escorregamento", "Tensão terminal vs. potência reativa"],
+    e: "A curva V plota a corrente de estator em função da corrente de campo, mostrando o ponto de FP unitário no mínimo."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "O fenômeno do trancamento (cogging) em motores de indução com rotor de gaiola ocorre principalmente devido a:",
+    a: "Harmônicos de espaço resultantes do número desfavorável de ranhuras do estator e rotor.",
+    w: ["Saturação do núcleo magnético nas cabeças de bobina.", "Desbalanceamento das tensões de alimentação.", "Efeito pelicular nas barras profundas.", "Oscilações de baixa frequência na corrente."],
+    e: "O cogging surge quando o número de ranhuras do estator e rotor criam caminhos de relutância mínima que prendem o rotor."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "Em máquinas CC, a reação de armadura causa distorção e enfraquecimento do fluxo no entreferro. Para mitigar seus efeitos, emprega-se:",
+    a: "Polos de comutação (interpolos) e enrolamentos de compensação.",
+    w: ["Enrolamentos amortecedores na carcaça.", "Resistores em paralelo com as escovas.", "Aumento do entreferro sob os polos.", "Inversão do campo de excitação."],
+    e: "Interpolos neutralizam a MMF de armadura na zona neutra e os enrolamentos de compensação cancelam o efeito sob as sapatas polares."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "Um conjunto de correntes desequilibradas é dado por I_a = 10∠0° A, I_b = 0 A e I_c = 0 A. A componente de sequência zero (I_a0) é:",
+    a: "3,33∠0° A",
+    w: ["10∠0° A", "5,77∠30° A", "0 A", "3,33∠120° A"],
+    e: "I_a0 = (1/3)(I_a + I_b + I_c) = (10 + 0 + 0)/3 = 3,33∠0° A."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "Em um curto-circuito monofásico à terra sólido na fase A nos terminais de um gerador com neutro aterrado, como se interconectam as redes de sequência para cálculo das correntes de falta?",
+    a: "Em série.",
+    w: ["Em paralelo.", "Sequência positiva e negativa em paralelo, zero aberta.", "Apenas sequência positiva.", "Positiva e zero em série, negativa omitida."],
+    e: "Para falta monofásica à terra, I_a1 = I_a2 = I_a0, o que corresponde à conexão em série das três redes de sequência."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "Considerando um gerador com reatâncias Z_1 = j0,15 pu, Z_2 = j0,15 pu e Z_0 = j0,05 pu e tensão 1,0 pu, a corrente de curto trifásico e monofásico à terra em p.u. são:",
+    a: "6,67 pu e 8,57 pu",
+    w: ["6,67 pu e 6,67 pu", "5,00 pu e 6,67 pu", "6,67 pu e 20,0 pu", "3,33 pu e 10,0 pu"],
+    e: "I_3φ = 1,0/0,15 = 6,67 pu. I_a0 = 1,0/(0,15+0,15+0,05) = 2,857 pu → I_a = 3·I_a0 = 8,57 pu."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "Um transformador com conexões Estrela Aterrada no primário e Triângulo no secundário (Yn-d) apresenta qual comportamento em relação à corrente de sequência zero?",
+    a: "Permite circulação no lado Yn com retorno pelo neutro, refletindo como corrente circulante interna no Triângulo sem fluir para a rede secundária.",
+    w: ["Permite circulação do Triângulo para a rede externa.", "Bloqueia sequência zero em ambos os lados.", "Apresenta impedância de sequência zero infinita no Yn.", "Transforma sequência zero em negativa."],
+    e: "O neutro permite a entrada de sequência zero, mas como a corrente circula em delta fechado no secundário, ela não sai para a rede externa."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "A matriz Y_bus de um SEP de 3 barras possui diagonais Y_11 = -j10 pu, Y_22 = -j15 pu, Y_33 = -j12 pu e fora da diagonal Y_12 = j5 pu e Y_13 = j3 pu. A admitância shunt conectada à Barra 1 é:",
+    a: "-j2 pu",
+    w: ["-j18 pu", "j2 pu", "-j10 pu", "0 pu"],
+    e: "Y_11 = y_10 + y_12 + y_13 → -j10 = y_10 + (-j5) + (-j3) → y_10 = -j2 pu."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "Em um curto-circuito bifásico entre as fases B e C sem contato com a terra, a relação entre as correntes de sequência positiva (I_a1) e negativa (I_a2) da fase A é:",
+    a: "Ia1 = -Ia2",
+    w: ["Ia1 = Ia2", "Ia1 = 2 · Ia2", "Ia1 = 0", "Ia2 = 0"],
+    e: "Como I_a = 0 e I_a0 = 0, tem-se I_a1 + I_a2 = 0 → I_a1 = -I_a2."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "Em um SEP com S_base = 100 MVA e V_base = 115 kV em uma linha, a impedância de base é aproximadamente:",
+    a: "132,25 Ω",
+    w: ["115,00 Ω", "1,32 Ω", "1322,5 Ω", "86,9 Ω"],
+    e: "Z_base = V_base² / S_base = 115² / 100 = 132,25 Ω."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "No método de Gauss-Seidel para Fluxo de Carga, em uma 'Barra PV' (Geração), quais variáveis são prefixadas e qual é calculada?",
+    a: "Prefixadas: P e |V|; Calculadas: Q e θ.",
+    w: ["Prefixadas: P e Q; Calculadas: |V| e θ.", "Prefixadas: |V| e θ; Calculadas: P e Q.", "Prefixadas: Q e |V|; Calculadas: P e θ.", "Prefixadas: P e θ; Calculadas: Q e |V|."],
+    e: "Barra PV especifica potência ativa P e módulo de tensão |V|, calculando o ângulo θ e a potência reativa Q."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "O Efeito Ferranti em linhas de transmissão longas operando em vazio ou com carga muito baixa consiste no:",
+    a: "Aumento da tensão no receptor em relação à tensão no transmissor.",
+    w: ["Aumento da corrente de curto no receptor.", "Queda drástica do fator de potência na fonte.", "Aumento da resistência efetiva.", "Surgimento de harmônicas de 3ª ordem."],
+    e: "A corrente capacitiva fluindo pela indutância da linha causa elevação de tensão no final da linha (V_rec > V_trans)."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "Uma linha de transmissão de 500 kV possui impedância de surto Z_c = 400 Ω. A Potência Natural (SIL) dessa linha é:",
+    a: "625 MW",
+    w: ["1250 MW", "312,5 MW", "2000 MW", "500 MW"],
+    e: "SIL = V_LL² / Z_c = 500² / 400 = 250000 / 400 = 625 MW."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "Conforme a NBR 5410, qual o esquema de aterramento com neutro da fonte aterrado e massas ligadas a eletrodos distintos do eletrodo da fonte?",
+    a: "Esquema TT",
+    w: ["Esquema TN-S", "Esquema TN-C", "Esquema IT", "Esquema TN-C-S"],
+    e: "No esquema TT, o aterramento da carga é independente do eletrodo de aterramento da alimentação."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "Segundo a ABNT NBR ISO/CIE 8995-1, o Índice de Reprodução de Cor (IRC ou R_a) mínimo para locais de trabalho com tarefas visuais contínuas e de precisão é:",
+    a: "80",
+    w: ["40", "60", "20", "100"],
+    e: "Para locais com permanência humana e trabalho contínuo de precisão, o IRC mínimo exigido é 80."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "Qual arranjo de barramento de subestação oferece a MAIOR flexibilidade e confiabilidade, permitindo manutenção em qualquer disjuntor sem interrupção de circuitos?",
+    a: "Disjuntor e Meio (1 ½ disjuntor)",
+    w: ["Barramento Simples", "Barramento Duplo com Disjuntor Simples", "Barramento Principal e de Transferência", "Barramento em Anel"],
+    e: "O arranjo disjuntor e meio utiliza três disjuntores para dois circuitos, permitindo isolar qualquer disjuntor sem desligamentos."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "Conforme a NBR 14039, o relé que atua detectando desequilíbrio de correntes provocado por falta fase-terra em sistemas de alta impedância é:",
+    a: "Relé de Sobrecorrente de Neutro / Ground Fault (51N/50N ou 51G)",
+    w: ["Relé de Distância (21)", "Relé de Sobre-tensão (59)", "Relé de Subfrequência (81U)", "Relé de Sincronismo (25)"],
+    e: "Os relés 50N/51N e 50G/51G monitoram correntes residuais ou de neutro para faltas fase-terra."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "A função primária do gás Hexafluoreto de Enxofre (SF_6) em disjuntores e subestações GIS baseia-se em suas propriedades de:",
+    a: "Alta rigidez dielétrica e elevada capacidade de extinção de arco por ser eletronegativo.",
+    w: ["Alta condutividade térmica.", "Baixa densidade e alta inflamabilidade.", "Elevado calor específico e lubrificação.", "Ação reagente para absorção de umidade."],
+    e: "O SF_6 é altamente eletronegativo, extinguindo arcos rapidamente e oferecendo excelente isolamento."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "De acordo com a NR-10, assinale a ordem CORRETA das etapas iniciais de desenergização:",
+    a: "Seccionamento → Impedimento de reenergização → Constatação da ausência de tensão → Aterramento temporário",
+    w: ["Sinalização → Aterramento → Seccionamento", "Constatação de tensão → Seccionamento → Aterramento", "Aterramento → Constatação → Seccionamento", "Impedimento → Seccionamento → Sinalização"],
+    e: "NR-10 item 10.5.1 define rigorosamente: 1. Seccionamento, 2. Impedimento, 3. Ausência de tensão, 4. Aterramento temporário."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "Se um eletroduto contiver 4 circuitos multifilares agrupados, aplica-se o fator de correção de agrupamento f_g, cujo efeito é:",
+    a: "Reduzir a capacidade de condução de corrente admissível dos cabos devido ao aquecimento mútuo.",
+    w: ["Aumentar a ampacidade nominal.", "Aumentar a queda de tensão máxima.", "Alterar a suportabilidade ao curto-circuito.", "Substituir o condutor de proteção."],
+    e: "O fator de agrupamento menor que 1 penaliza a capacidade de corrente do cabo devido à dissipação térmica conjunta."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "Para proteção contra descargas atmosféricas (PDA) segundo a NBR 5419, o Método das Malhas (Gaiola de Faraday) baseia-se em:",
+    a: "Envolver a estrutura por uma rede de condutores em malha quadriculada na cobertura e fachadas.",
+    w: ["Posicionar mastros com ângulo de proteção.", "Rolar uma esfera imaginária sobre a estrutura.", "Instalar supressores de surto de alta capacidade.", "Utilizar isoladores de topo."],
+    e: "A gaiola de Faraday emprega malhas de condutores distribuídas por toda a envoltória da edificação."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "Um TC 500/5 A de classe 10P20 especificado para proteção indica que:",
+    a: "O erro composto do TC não excede 10% até 20 vezes a corrente nominal primária.",
+    w: ["A carga secundária é 20 VA.", "A defasagem máxima é 20 minutos de arco.", "A corrente de curto prazo é 20 kA.", "A tensão de saturação é 20 V."],
+    e: "10P20 significa erro limite de 10% (10P) até um Fator Limite de Precisão (ALF) de 20 vezes a corrente nominal."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "O relé Buchholz é um dispositivo de proteção instalado especificamente em:",
+    a: "Na tubulação entre o tanque principal do transformador a óleo e o tanque conservador.",
+    w: ["Entre a bucha de alta tensão e o disjuntor.", "No barramento de aterramento da subestação.", "Em série com os TPs da barra.", "Dentro do painel de corrente contínua."],
+    e: "O relé Buchholz detecta gases e fluxos anômalos de óleo na tubulação para o conservador."
+  },
+  {
+    t: "Automação e Controle",
+    q: "Se G(s)H(s) = K / [s(s+2)(s+5)], o número de assíntotas do Lugar Geométrico das Raízes (LGR) e os ângulos com o eixo real são:",
+    a: "3 assíntotas; 60°, 180° e 300°",
+    w: ["2 assíntotas; ±90°", "3 assíntotas; 45°, 135° e 225°", "4 assíntotas; 45°, 135°, 225° e 315°", "1 assíntota; 180°"],
+    e: "Polos P = 3, Z = 0. Assíntotas N = 3. Ângulos: (2k+1)180°/3 para k=0,1,2 → 60°, 180°, 300°."
+  },
+  {
+    t: "Automação e Controle",
+    q: "Dada a equação característica s⁴ + 2s³ + 3s² + 4s + K = 0, para que o sistema seja estável por Routh-Hurwitz, o ganho K deve satisfazer:",
+    a: "0 < K < 2",
+    w: ["0 < K < 3", "K > 4", "0 < K < 10", "K < 0"],
+    e: "Montando a tabela de Routh, a linha de s¹ resulta em (4 - 2K) > 0 → K < 2, além de K > 0."
+  },
+  {
+    t: "Automação e Controle",
+    q: "A inclusão da ação derivativa (K_d) em um controlador PID paralelo ideal G_c(s) = K_p + K_i/s + K_d·s tem como objetivo principal:",
+    a: "Melhorar a estabilidade relativa e antecipar o comportamento dinâmico reduzindo o sobressinal.",
+    w: ["Eliminar o erro em regime permanente para degrau.", "Filtrar ruídos de alta frequência dos sensores.", "Aumentar o tipo do sistema.", "Reduzir o ganho em altas frequências."],
+    e: "A ação derivativa adiciona amortecimento preditivo, aumentando a margem de fase e reduzindo o overshoot."
+  },
+  {
+    t: "Automação e Controle",
+    q: "Dentre os pólos do sistema em espaço de estados com matriz A = [[0, 1], [-6, -5]], os autovalores são:",
+    a: "s1 = -2 e s2 = -3",
+    w: ["s1 = 0 e s2 = -5", "s1 = 1 e s2 = 6", "s1 = -1 e s2 = -6", "s1 = 2 e s2 = 3"],
+    e: "det(sI - A) = s(s+5) + 6 = s² + 5s + 6 = (s+2)(s+3) = 0 → s = -2 e s = -3."
+  },
+  {
+    t: "Automação e Controle",
+    q: "O protocolo Modbus RTU, muito utilizado em automação industrial e refinarias, emprega qual meio físico e modo de transmissão?",
+    a: "Serial RS-485 com codificação binária e verificação de erro por CRC.",
+    w: ["Ethernet TCP/IP a 100 Mbps em fibra.", "Barramento paralelo de 8 bits com paridade.", "4-20 mA com modulação FSK.", "Wireless ISA100.11a em 2.4 GHz."],
+    e: "Modbus RTU roda sobre barramento serial RS-485 diferencial com CRC-16."
+  },
+  {
+    t: "Automação e Controle",
+    q: "Conforme a norma IEC 61131-3 para CLPs, qual linguagem é gráfica baseada na representação de diagramas de relés elétricos?",
+    a: "Diagrama Ladder (LD)",
+    w: ["Texto Estruturado (ST)", "Lista de Instruções (IL)", "Grafcet / SFC", "Blocos Funcionais (FBD)"],
+    e: "Ladder (LD) simula os circuitos de relés com contatos e bobinas dispostos horizontalmente."
+  },
+  {
+    t: "Automação e Controle",
+    q: "Se em um Diagrama de Bode a frequência de cruzamento de ganho possui fase de -135°, a Margem de Fase do sistema é:",
+    a: "45°",
+    w: ["-45°", "135°", "315°", "90°"],
+    e: "MF = 180° + φ = 180° + (-135°) = 45°."
+  },
+  {
+    t: "Automação e Controle",
+    q: "Um sensor com saída de 4 a 20 mA mede pressão de 0 a 10 bar. Se o CLP lê 12 mA, a pressão medida correspondente é:",
+    a: "5,0 bar",
+    w: ["6,0 bar", "4,0 bar", "7,5 bar", "2,5 bar"],
+    e: "O span é 16 mA. 12 mA está a 8 mA do início (50% do span). 50% de 10 bar = 5,0 bar."
+  },
+  {
+    t: "Automação e Controle",
+    q: "Para evitar aliasing ao amostrar um sinal contínuo com frequência máxima de 200 Hz, a taxa de amostragem mínima de Nyquist deve ser:",
+    a: "400 Hz",
+    w: ["100 Hz", "200 Hz", "1000 Hz", "50 Hz"],
+    e: "Teorema de Nyquist: f_s ≥ 2 · f_max = 2 · 200 = 400 Hz."
+  },
+  {
+    t: "Automação e Controle",
+    q: "Para o sistema amostrado G(z) = 0,2 / (z - 0,8), a resposta em regime permanente a um degrau unitário é:",
+    a: "1,0",
+    w: ["0,2", "0,8", "Infinito", "0,5"],
+    e: "Teorema do Valor Final: y(∞) = lim (z-1)·(0.2/(z-0.8))·(z/(z-1)) = 0,2 / (1 - 0,8) = 1,0."
+  },
+  /* --- 10 Questões Bônus Transpetro / Industrial / Offshore --- */
+  {
+    t: "Instalações e Subestações",
+    q: "Em instalações de áreas classificadas (como terminais e refinarias da Transpetro) com gases do Grupo IIA, o tipo de proteção elétrica com invólucro capaz de suportar explosão interna sem inflamar o exterior é:",
+    a: "Ex d (À prova de explosão)",
+    w: ["Ex e (Segurança aumentada)", "Ex i (Segurança intrínseca)", "Ex p (Vaso sob pressão)", "Ex m (Encapsulamento)"],
+    e: "O tipo Ex d confina a explosão e resfria os gases nas aberturas, impedindo a ignição externa."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "A proteção diferencial percentual (Função 87) aplicada a grandes transformadores possui como característica a imunidade a disparos falsos causados por:",
+    a: "Corrente de magnetização inrush e desequilíbrios de TCs por saturação transitória.",
+    w: ["Faltas trifásicas na alta tensão", "Aumento da carga ativa nominal", "Variações lentas de frequência", "Fluxo reativo capacitivo"],
+    e: "A inrush gera picos de corrente no religamento que não representam falta interna, exigindo bloqueio por segunda harmônica na função 87."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "Em dutovias e tanques da Transpetro, o sistema de proteção catódica por corrente impressa utiliza retificadores para:",
+    a: "Polarizar eletricamente a estrutura metálica como cátodo, impedindo a corrosão eletroquímica.",
+    w: ["Elevar a impedância de terra", "Aumentar a condutividade do óleo", "Reduzir harmônicos de motores", "Filtrar surtos de manobra"],
+    e: "A corrente impressa força elétrons para a estrutura, tornando-a cátodo e paralisando a oxidação do metal."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "Em plataformas e navios da Transpetro, motores de indução acionados por inversores de frequência em regime severo exigem atenção especial quanto a:",
+    a: "Tensões de eixo e correntes de mancais causadas por descargas capacitivas de alta frequência.",
+    w: ["Redução síncrona da frequência", "Bloqueio do escorregamento", "Saturação magnética estática", "Inversão espontânea de rotação"],
+    e: "PWM de alta frequência induz tensões parasitas no eixo que danificam mancais e rolamentos se não houver aterramento adequado/escovas."
+  },
+  {
+    t: "Automação e Controle",
+    q: "Segundo as normas IEC 61508 / IEC 61511, os Sistemas Instrumentados de Segurança (SIS) aplicados em processos para prevenção de falhas catastróficas são classificados em Níveis de Integridade (SIL) de:",
+    a: "SIL 1 a SIL 4",
+    w: ["SIL A a SIL E", "Nível 0 a Nível 5", "Classe I a IV", "Grau 10 a 100"],
+    e: "A hierarquia de segurança funcional define os níveis de integridade de SIL 1 (menor) até SIL 4 (maior exigência)."
+  },
+  {
+    t: "Teoria de Circuitos",
+    q: "Cargas não lineares em redes industriais geram harmônicas. Em sistemas trifásicos a quatro fios, as harmônicas de ordem tripla (3ª, 9ª, 15ª):",
+    a: "Somam-se no condutor neutro, podendo exceder a corrente nominal das fases mesmo com cargas equilibradas.",
+    w: ["Anulam-se por completo no neutro", "Geram apenas sequência negativa", "Não afetam o condutor neutro", "Aparecem somente nas tensões de linha"],
+    e: "Sequências zero das harmônicas triplas estão em fase e somam-se algebricamente no condutor neutro."
+  },
+  {
+    t: "Sistemas de Potência",
+    q: "O Critério de Igualdade de Áreas (Equal-Area Criterion) é usado para avaliar graficamente a estabilidade transitória de uma máquina síncrona após:",
+    a: "Uma perturbação brusca (como curto-circuito e abertura de linha).",
+    w: ["Variações lentas da carga da turbina", "Oscilações harmônicas de tensão", "Desbalanceamento de sequência zero", "Manobra de banco de capacitores"],
+    e: "Compara a energia cinética aceleradora e desaceleradora durante e após uma falta transitória."
+  },
+  {
+    t: "Instalações e Subestações",
+    q: "No dimensionamento de malhas de aterramento de subestações AT, o parâmetro do solo mais relevante para dispersão de correntes de falta é:",
+    a: "A resistividade aparente do solo (Ω·m).",
+    w: ["A permeabilidade magnética relativa", "A umidade relativa do ar", "A rigidez dielétrica da atmosfera", "A capacitância com o lençol freático"],
+    e: "A resistividade do solo determina o gradiente de potencial e a resistência de terra da malha."
+  },
+  {
+    t: "Automação e Controle",
+    q: "O protocolo PROFIBUS PA, utilizado em automação de processos industriais contínuos, destaca-se por ser destinado a:",
+    a: "Interligação de instrumentos de campo em áreas classificadas com dados e alimentação no mesmo par (FISCO).",
+    w: ["Backbone em fibra para inversores de 13,8 kV", "Redes sem fio via satélite", "Conexão de CLPs redundantes em painéis", "Transmissão de vídeo de segurança"],
+    e: "O Profibus PA utiliza Manchester Bus Powered (IEC 61158-2) para instrumentação intrinsecamente segura."
+  },
+  {
+    t: "Máquinas Elétricas",
+    q: "No ensaio de curto-circuito de um transformador, a impedância equivalente obtida é predominantemente:",
+    a: "Resistiva-indutiva (com componente indutivo muito superior ao resistivo).",
+    w: ["Puramente capacitiva", "Puramente resistiva", "Indutiva pura sem perdas joule", "Ressonante"],
+    e: "O enrolamento do transformador possui espiras com indutância de dispersão dominante sobre a resistência ôhmica dos condutores."
+  }
 ];
 
-const QS=Q.map(r=>({t:r[0],q:r[1],a:r[2],w:[r[3],r[4],r[5]],e:r[6]}));
+const QS=Q;
 
 /* Pares para a Forja de Fórmulas */
 const F=[
-  ["Lei de Ohm","V = R·I"],
-  ["Potência aparente","S = V·I"],
-  ["Reatância indutiva","XL = 2πfL"],
-  ["Reatância capacitiva","XC = 1/(2πfC)"],
-  ["Velocidade síncrona","ns = 120·f/p"],
-  ["Escorregamento","s = (ns − n)/ns"],
-  ["Impedância base","Zb = Vb²/Sb"],
-  ["Ganho inversor","Av = −Rf/Rin"],
-  ["Constante RC","τ = R·C"],
-  ["Potência trifásica","P = √3·VL·IL·cos φ"],
-  ["Fator de potência","FP = P/S"],
-  ["Ressonância série","f = 1/(2π√LC)"]
+  ["Lei de Ohm","V = R·I"],["Potência aparente","S = V·I"],["Reatância indutiva","XL = 2πfL"],
+  ["Reatância capacitiva","XC = 1/(2πfC)"],["Velocidade síncrona","ns = 120·f/p"],["Escorregamento","s = (ns − n)/ns"],
+  ["Impedância base","Zb = Vb²/Sb"],["Ganho inversor","Av = −Rf/Rin"],["Constante RC","τ = R·C"],
+  ["Potência trifásica","P = √3·VL·IL·cos φ"],["Fator de potência","FP = P/S"],["Ressonância série","f = 1/(2π√LC)"]
 ];
 
 let S={};try{S=JSON.parse(localStorage.getItem("eq")||"{}")}catch(e){}
@@ -146,7 +527,7 @@ Object.keys(TH).forEach(k=>{ if(!S.stats[k]) S.stats[k]={tot:0,ok:0}; });
 let currentStreak = 0;
 
 const save=()=>{try{localStorage.setItem("eq",JSON.stringify(S))}catch(e){}};
-const lvl=()=>Math.floor(S.xp/100)+1;
+const lvl=()=>Math.floor(S.xp/150)+1;
 
 const recordStat=(topic, isOk)=>{
   if(!S.stats[topic]) S.stats[topic]={tot:0, ok:0};
@@ -168,30 +549,17 @@ let timer=null;const stop=()=>{clearInterval(timer);timer=null};
 const sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
 const head=()=>`<div class="top"><b>⚡ Eletro Quest</b><div><span>${getRank(S.xp)}</span><span>Nv ${lvl()} · ${S.xp} XP</span></div></div>`;
 
-function menu(){
-  stop(); currentStreak=0;
-  A.innerHTML=head()+`<div class="card">
-    <span class="badge">Trilha da Aprovação Transpetro 2026.4</span>
-    <h3>⚔️ Batalha de Chefes</h3>
-    <p>Quiz RPG: escolha a matéria ou simulado completo (Específicos + Gerais):</p>
-    <div class="row">
-      <button class="prim" onclick="battle('*')">Simulado Completo</button>
-      <button onclick="battle('GERAIS')">Apenas Gerais (POR/ING)</button>
-      <button onclick="battle('ESPECIFICOS')">Apenas Específicos</button>
-    </div>
-    <div class="row" style="margin-top:8px;">
-      ${Object.keys(TH).map(k=>`<button onclick="battle('${k}')">${TH[k]}</button>`).join("")}
-    </div>
-  </div>
-  <div class="card"><h3>🃏 Forja de Fórmulas</h3><p>Jogo da memória: una cada conceito à sua fórmula.</p><button class="prim" onclick="memo()">Jogar</button></div>
-  <div class="card"><h3>🛡️ Defesa da Subestação</h3><p>Tower defense: falhas avançam pela linha. Responda a tempo para disparar a proteção.</p><button class="prim" onclick="td()">Jogar</button></div>
-  <div class="card"><h3>📊 Painel de Desempenho (Edital 2026.4)</h3><p>Verifique o cumprimento das notas de corte (Gerais e Específicos).</p><button onclick="showStats()">Ver Estatísticas</button></div>`;
-}
+function menu(){stop(); currentStreak=0;
+A.innerHTML=head()+`<div class="card"><span class="badge">Trilha da Aprovação Transpetro (${QS.q ? QS.length : QS.length} Questões)</span><h3>⚔️ Batalha de Chefes</h3><p>Quiz com 60 questões avançadas de Engenharia Elétrica. Mantenha sequências para bônus de XP!</p><div class="row">`+
+["*",...Object.keys(TH)].map(k=>`<button onclick="battle('${k}')">${k=="*"?"Todas":k}</button>`).join("")+`</div></div>
+<div class="card"><h3>🃏 Forja de Fórmulas</h3><p>Jogo da memória: una cada conceito à sua fórmula.</p><button class="prim" onclick="memo()">Jogar</button></div>
+<div class="card"><h3>🛡️ Defesa da Subestação</h3><p>Tower defense: falhas avançam pela linha. Responda a tempo para disparar a proteção.</p><button class="prim" onclick="td()">Jogar</button></div>
+<div class="card"><h3>📊 Painel de Desempenho</h3><p>Analise suas estatísticas e descubra quais matérias exigem foco.</p><button onclick="showStats()">Ver Estatísticas</button></div>`}
 
 /* Motor de perguntas reutilizável */
 function ask(box,q,n,done,showE){
 const o=sh([q.a,...sh(q.w).slice(0,n-1)]);
-box.innerHTML=`<p class="q"><small>${TH[q.t]}</small><br>${q.q}</p>`+o.map((x,i)=>`<button class="opt" data-i="${i}">${"ABCDE"[i]}) ${x}</button>`).join("");
+box.innerHTML=`<p class="q"><small>${TH[q.t] || q.t}</small><br>${q.q}</p>`+o.map((x,i)=>`<button class="opt" data-i="${i}">${"ABCDE"[i]}) ${x}</button>`).join("");
 let d=0;
 box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(d)return;d=1;
 const ok=o[b.dataset.i]===q.a;
@@ -212,31 +580,8 @@ A.innerHTML=head()+`<div class="card"><h3>${win?"🏆 Vitória!":"💀 Derrota"}
 
 function showStats(){
   stop();
-  let statsHtml = `<div class="card"><h3>📊 Painel de Desempenho e Alertas do Edital</h3>`;
+  let statsHtml = `<div class="card"><h3>📊 Painel de Desempenho e Revisão</h3><p>Desempenho por categoria de estudo na Transpetro:</p>`;
   
-  // Cálculo do desempenho em Conhecimentos Gerais (POR + ING)
-  let totGerais = (S.stats['POR']?.tot || 0) + (S.stats['ING']?.tot || 0);
-  let okGerais = (S.stats['POR']?.ok || 0) + (S.stats['ING']?.ok || 0);
-  let pctGerais = totGerais > 0 ? Math.round((okGerais / totGerais) * 100) : 0;
-
-  // Cálculo de Conhecimentos Específicos (C + M + S + E + N)
-  let espKeys = ['C','M','S','E','N'];
-  let totEsp = espKeys.reduce((acc,k)=>(acc + (S.stats[k]?.tot || 0)), 0);
-  let okEsp = espKeys.reduce((acc,k)=>(acc + (S.stats[k]?.ok || 0)), 0);
-  let pctEsp = totEsp > 0 ? Math.round((okEsp / totEsp) * 100) : 0;
-
-  // Verificação das Regras de Eliminatória da Cesgranrio
-  let alertMsg = "";
-  if (totGerais > 0 || totEsp > 0) {
-    if (pctGerais < 50 || pctEsp < 50 || (S.stats['POR']?.tot > 0 && S.stats['POR']?.ok === 0) || (S.stats['ING']?.tot > 0 && S.stats['ING']?.ok === 0)) {
-      alertMsg = `<div class="alert-box bad">⚠️ <strong>Aviso do Edital Transpetro:</strong> O seu desempenho atual resultaria em ELIMINAÇÃO. Lembre-se: é necessário no mínimo 50% em Gerais, 50% em Específicos e não zerar nenhuma matéria de Gerais.</div>`;
-    } else {
-      alertMsg = `<div class="alert-box good">✅ <strong>Aprovado na Nota de Corte Mínima!</strong> Mantenha a constância nos simulados para alcançar o topo da classificação.</div>`;
-    }
-  }
-  statsHtml += alertMsg;
-
-  statsHtml += `<p><strong>Desempenho por Matéria:</strong></p>`;
   let entries = Object.keys(TH).map(k=>{
     let st = S.stats[k] || {tot:0, ok:0};
     let pct = st.tot > 0 ? Math.round((st.ok / st.tot) * 100) : 0;
@@ -252,7 +597,7 @@ function showStats(){
 
   entries.forEach(e => {
     let badClass = e.pct < 50 && e.tot > 0 ? "bad" : "";
-    statsHtml += `<div style="margin: 10px 0;">
+    statsHtml += `<div style="margin: 12px 0;">
       <div class="stat-bar">
         <span><b>${e.name}</b> (${e.ok}/${e.tot} acertos)</span>
         <span><b>${e.pct}%</b></span>
@@ -261,39 +606,25 @@ function showStats(){
     </div>`;
   });
 
-  statsHtml += `<button class="prim" onclick="menu()" style="margin-top:14px;">Voltar ao Menu</button></div>`;
+  statsHtml += `<p style="margin-top:14px; font-size:13px; color:var(--mut);">💡 Dica: Foque nas matérias com barras menores ou vermelhas antes de prosseguir na Trilha da Aprovação.</p><button class="prim" onclick="menu()" style="margin-top:10px;">Voltar ao Menu</button></div>`;
   A.innerHTML = head() + statsHtml;
 }
 
 /* Mecânica 1: Batalha de Chefes */
-function battle(k){
-  stop(); currentStreak=0;
-  let pool = [];
-  if(k === "*") {
-    pool = QS;
-  } else if(k === "GERAIS") {
-    pool = QS.filter(x => ["POR","ING"].includes(x.t));
-  } else if(k === "ESPECIFICOS") {
-    pool = QS.filter(x => ["C","M","S","E","N"].includes(x.t));
-  } else {
-    pool = QS.filter(x => x.t == k);
-  }
-
-  let st={p:100,m:100,q:[]};
-  const nx=()=>{if(!st.q.length)st.q=sh(pool);return st.q.pop()};
-  const name= MON[k] || (k=="*" ? "Chefe da Banca Cesgranrio" : "Oponente do Edital");
-
-  const draw=()=>{
-  A.innerHTML=head()+`<div class="card"><div class="bars"><div>🧑‍🔧 Você (${currentStreak > 0 ? '🔥'+currentStreak+'x' : ''})<div class="bar"><i style="width:${st.p}%"></i></div></div><div>👹 ${name}<div class="bar"><i class="m" style="width:${st.m}%"></i></div></div></div><div id="box"></div><div id="nxt"></div></div>`;
-  ask(document.getElementById("box"),nx(),4,ok=>{
-  if(ok)st.m-=25;else st.p-=25;
-  const bars=document.querySelectorAll(".bar i");bars[0].style.width=Math.max(st.p,0)+"%";bars[1].style.width=Math.max(st.m,0)+"%";
-  const n=document.getElementById("nxt");
-  if(st.m<=0)return setTimeout(()=>fin(true,"Você derrotou "+name+"!",40),1800);
-  if(st.p<=0)return setTimeout(()=>fin(false,name+" venceu."),1800);
-  n.innerHTML=`<button class="prim" id="go">Próximo golpe ▶</button>`;document.getElementById("go").onclick=draw},true)};
-  draw();
-}
+function battle(k){stop(); currentStreak=0;
+const pool=QS.filter(x=>k=="*"||x.t==k);let st={p:100,m:100,q:[]};
+const nx=()=>{if(!st.q.length)st.q=sh(pool);return st.q.pop()};
+const name=k=="*"?"Chefe do Apagão":MON[k];
+const draw=()=>{
+A.innerHTML=head()+`<div class="card"><div class="bars"><div>🧑‍🔧 Você (${currentStreak > 0 ? '🔥'+currentStreak+'x' : ''})<div class="bar"><i style="width:${st.p}%"></i></div></div><div>👹 ${name}<div class="bar"><i class="m" style="width:${st.m}%"></i></div></div></div><div id="box"></div><div id="nxt"></div></div>`;
+ask(document.getElementById("box"),nx(),5,ok=>{
+if(ok)st.m-=20;else st.p-=25;
+const bars=document.querySelectorAll(".bar i");bars[0].style.width=Math.max(st.p,0)+"%";bars[1].style.width=Math.max(st.m,0)+"%";
+const n=document.getElementById("nxt");
+if(st.m<=0)return setTimeout(()=>fin(true,"Você derrotou "+name+"!",50),1800);
+if(st.p<=0)return setTimeout(()=>fin(false,name+" venceu."),1800);
+n.innerHTML=`<button class="prim" id="go">Próximo golpe ▶</button>`;document.getElementById("go").onclick=draw},true)};
+draw()}
 
 /* Mecânica 2: Forja de Fórmulas */
 function memo(){stop(); currentStreak=0;
@@ -307,7 +638,7 @@ if(!sel){sel=b;b.classList.add("sel");return}
 tries++;document.getElementById("st").textContent="Tentativas: "+tries;
 const a=cards[sel.dataset.j],c=cards[b.dataset.j],s0=sel;sel=null;s0.classList.remove("sel");
 if(a.i==c.i&&a.f!=c.f){s0.classList.add("done");b.classList.add("done");found++;
-if(found==6)setTimeout(()=>fin(true,"Todas as fórmulas forjadas em "+tries+" tentativas.",Math.max(10,40-(tries-6)*3)),700)}
+if(found==6)setTimeout(()=>fin(true,"Todas as fórmulas forjadas em "+tries+" tentativas.",Math.max(15,50-(tries-6)*3)),700)}
 else{lock=1;s0.classList.add("no");b.classList.add("no");setTimeout(()=>{s0.classList.remove("no");b.classList.remove("no");lock=0},800)}})}
 
 /* Mecânica 3: Defesa da Subestação */
@@ -321,11 +652,11 @@ E.forEach(e=>e.x+=speed);
 const hit=E.filter(e=>e.x>=L);
 if(hit.length){hp-=20*hit.length;E=E.filter(e=>e.x<L);cur=null}
 if(hp<=0)return fin(false,"A subestação caiu. Eliminadas: "+kills+"/"+total+".");
-if(spawned==total&&!E.length)return fin(true,"Subestação protegida! Falhas eliminadas: "+kills+"/"+total+".",20+kills*3);
+if(spawned==total&&!E.length)return fin(true,"Subestação protegida! Falhas eliminadas: "+kills+"/"+total+".",30+kills*4);
 document.getElementById("hud").innerHTML=`<div class="bars"><div>🏭 Subestação<div class="bar"><i style="width:${hp}%"></i></div></div><div>Falhas: ${kills}/${total}</div></div>`;
 document.getElementById("lane").innerHTML=E.map(e=>`<b style="left:${e.x/L*85}%">${e.ic}</b>`).join("")+`<b class="base">🏭</b>`;
 const f=E.slice().sort((a,b)=>b.x-a.x)[0];
-if(f&&f!==cur&&!busy){cur=f;ask(document.getElementById("box"),f.q,3,ok=>{busy=1;
+if(f&&f!==cur&&!busy){cur=f;ask(document.getElementById("box"),f.q,5,ok=>{busy=1;
 if(ok){E=E.filter(e=>e!==f);kills++}else{hp-=5;f.q=QS[Math.random()*QS.length|0]}
 setTimeout(()=>{busy=0;cur=null},1500)},true)}
 },1000)}
