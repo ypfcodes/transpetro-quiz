@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eletro Quest – Transpetro 2026.4</title>
+<style>
+:root{--bg:#f3f5fa;--sf:#fff;--tx:#14213d;--mut:#5b6785;--ac:#d97706;--ok:#168a4d;--bad:#c8283f;--bd:#d3d9e8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0d1322;--sf:#18203a;--tx:#e8ecf8;--mut:#9aa6c6;--ac:#fbbf24;--ok:#3ddc84;--bad:#ff6b81;--bd:#2c3760}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0d1322;--sf:#18203a;--tx:#e8ecf8;--mut:#9aa6c6;--ac:#fbbf24;--ok:#3ddc84;--bad:#ff6b81;--bd:#2c3760}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:640px;margin:0 auto;padding:14px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:16px}
+.top div{display:flex;flex-direction:column;align-items:flex-end}
+.top span{color:var(--ac);font-weight:700;font-size:13px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}
+h3{margin:0 0 4px}p{margin:6px 0;color:var(--mut)}
+button{font:inherit;color:var(--tx);background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;cursor:pointer;margin:3px 3px 3px 0}
+button:hover{border-color:var(--ac)}
+.row{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.prim{background:var(--ac);color:#111;border:0;font-weight:700}
+.q{color:var(--tx);font-weight:600;font-size:17px}.q small{color:var(--ac);font-weight:700}
+.opt{display:block;width:100%;text-align:left;margin:6px 0}
+.opt.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
+.opt.bad{background:var(--bad);color:#fff;border-color:var(--bad)}
+.ex{background:var(--bg);border-radius:10px;padding:8px 10px;color:var(--tx)}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;font-size:14px}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--ok);transition:width .4s}.bar i.m{background:var(--bad)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cd{margin:0;min-height:64px;font-size:14px}
+.cd.sel{border-color:var(--ac);outline:2px solid var(--ac)}
+.cd.done{background:var(--ok);color:#fff;border-color:var(--ok)}
+.cd.no{background:var(--bad);color:#fff}
+.lane{position:relative;height:56px;background:var(--bg);border:1px dashed var(--bd);border-radius:10px;margin:8px 0 12px;overflow:hidden}
+.lane b{position:absolute;top:10px;font-size:26px;transition:left 1s linear}
+.lane .base{right:6px}
+.badge{display:inline-block;background:var(--ac);color:#111;font-weight:700;font-size:12px;padding:2px 8px;border-radius:6px;margin-bottom:6px}
+.stat-bar{display:flex;justify-content:space-between;align-items:center;margin:6px 0;font-size:14px}
+.stat-track{flex-grow:1;height:8px;background:var(--bd);border-radius:4px;margin:0 10px;overflow:hidden}
+.stat-fill{height:100%;background:var(--ac)}
+.stat-fill.bad{background:var(--bad)}
+.alert-box{padding:10px;border-radius:8px;margin:10px 0;font-size:13px;line-height:1.4}
+.alert-box.bad{background:rgba(200,40,63,0.15);border:1px solid var(--bad);color:var(--bad)}
+.alert-box.good{background:rgba(22,138,77,0.15);border:1px solid var(--ok);color:var(--ok)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const TH={
+  C:"Circuitos Elétricos",
+  M:"Máquinas Elétricas",
+  S:"Sistemas de Potência",
+  E:"Eletrônica",
+  N:"NR-10 e Segurança",
+  POR:"Língua Portuguesa (Gerais)",
+  ING:"Língua Inglesa (Gerais)"
+};
+
+const MON={
+  C:"Curto-Circuito Sombrio",
+  M:"Rotor Travado",
+  S:"Blackout Supremo",
+  E:"Diodo Rebelde",
+  N:"Fiscal do Risco",
+  POR:"Sintaxe Obscura",
+  ING:"False Friend Overload"
+};
+
+const RANKS = [
+  {min: 0, title: "Engenheiro Trainee"},
+  {min: 100, title: "Engenheiro Júnior"},
+  {min: 300, title: "Engenheiro Pleno"},
+  {min: 600, title: "Engenheiro Sênior"},
+  {min: 1000, title: "Engenheiro Especialista Transpetro"}
+];
+
+function getRank(xp) {
+  let current = RANKS[0].title;
+  for (let r of RANKS) {
+    if (xp >= r.min) current = r.title;
+  }
+  return current;
+}
+
+/* Banco de Questões - Específicas e Gerais (Cesgranrio/Transpetro 2026.4) */
+const Q=[
+["C","Potência ativa (W) em circuito CA monofásico senoidal:","P = V·I·cos φ","P = V·I·sen φ","P = V·I","P = V²·X","S = V·I (aparente); Q = V·I·sen φ (reativa)."],
+["C","Constante de tempo de um circuito RL série:","τ = L/R","τ = R·L","τ = R/L","τ = √(LC)","No RL, τ = L/R; no RC, τ = R·C."],
+["C","Frequência de ressonância de um circuito RLC série:","f = 1/(2π√(LC))","f = 2π√(LC)","f = 1/(2πRC)","f = R/(2πL)","Na ressonância XL = XC."],
+["C","Em ligação Y equilibrada, a relação entre tensão de linha e de fase é:","VL = √3·Vf","VL = Vf","VL = Vf/√3","VL = 3·Vf","Em Δ, VL = Vf e IL = √3·If."],
+["C","O equivalente de Thévenin é composto por:","Fonte de tensão em série com resistência","Fonte de corrente em paralelo com resistência","Duas fontes em paralelo","Capacitor em paralelo com resistência","A fonte de corrente em paralelo é o equivalente de Norton."],
+["M","Velocidade síncrona (rpm) de uma máquina CA com p polos:","ns = 120·f/p","ns = 60·p/f","ns = f/(120·p)","ns = 120·p/f","Ex.: 60 Hz, 4 polos → 1800 rpm."],
+["M","Escorregamento do motor de indução:","s = (ns − n)/ns","s = (n − ns)/ns","s = n/ns","s = ns/(ns − n)","Em plena carga, s costuma ficar entre 2% e 6%."],
+["M","Transformador ideal: relação entre tensões, espiras e correntes:","V1/V2 = N1/N2 = I2/I1","V1/V2 = N1/N2 = I1/I2","V1/V2 = N2/N1 = I2/I1","V1·I2 = V2·I1","A potência se conserva: V1·I1 = V2·I2."],
+["M","Em motor CC com excitação independente, para operar acima da velocidade nominal:","Enfraquecer o campo (reduzir o fluxo)","Aumentar o fluxo de campo","Reduzir a tensão de armadura","Inverter a polaridade da armadura","n = (V − Ra·Ia)/(k·Φ): menor Φ, maior n."],
+["S","Potência de curto-circuito trifásico (tensão de linha Vn):","Scc = √3·Vn·Icc","Scc = Vn·Icc·cos φ","Scc = Vn²·Icc","Scc = 3·Vn/Icc","Resulta em MVA se Vn em kV e Icc em kA."],
+["S","No sistema por unidade (pu), a impedância de base é:","Zbase = Vbase²/Sbase","Zbase = Sbase²/Vbase","Zbase = Vbase·Sbase","Zbase = Vbase/Sbase²","Com Vbase de linha e Sbase trifásica."],
+["S","A falta mais frequente em sistemas de potência é:","Monofásica à terra","Trifásica simétrica","Bifásica isolada","Trifásica à terra","Faltas monofásicas respondem pela maioria das ocorrências."],
+["S","Em uma falta trifásica equilibrada, existe apenas a sequência:","Positiva","Negativa","Zero","Negativa e zero","Sequências negativa e zero surgem em faltas desequilibradas."],
+["S","Para corrigir baixo fator de potência de carga indutiva, usa-se:","Banco de capacitores em paralelo","Reatores em série","Resistores em paralelo","Elevação da tensão da carga","Capacitores fornecem potência reativa à carga."],
+["E","Ganho de tensão do amp-op inversor ideal:","Av = −Rf/Rin","Av = 1 + Rf/Rin","Av = Rf/Rin","Av = −Rin/Rf","O não inversor tem Av = 1 + Rf/R1."],
+["E","Tensão média na saída de um retificador de onda completa ideal (pico Vp):","2·Vp/π","Vp/π","Vp/2","Vp/√2","Meia onda: Vp/π."],
+["E","BJT na região ativa direta:","BE diretamente polarizada e BC reversa","BE e BC diretas","BE e BC reversas","BE reversa e BC direta","Saturação: ambas diretas. Corte: ambas reversas."],
+["E","O diodo Zener é usado principalmente como:","Regulador de tensão, operando em reversa","Retificador de potência","Amplificador de sinal","Oscilador","Opera na região de ruptura (Zener/avalanche)."],
+["N","A NR-10 exige curso básico de segurança em instalações elétricas com carga mínima de:","40 horas","20 horas","80 horas","16 horas","O complementar SEP também tem 40 horas."],
+["N","Na desenergização (NR-10), a primeira etapa da sequência é:","Seccionamento","Aterramento temporário","Constatação da ausência de tensão","Sinalização de impedimento","Ordem: seccionamento, impedimento de reenergização, ausência de tensão, aterramento, proteção da zona controlada, sinalização."],
+["N","O Prontuário das Instalações Elétricas é obrigatório acima de carga instalada de:","75 kW","50 kW","100 kW","10 kW","Abaixo disso, exige-se a documentação das instalações."],
+["N","As distâncias da zona de risco e da zona controlada dependem de:","Tensão nominal da instalação","Corrente nominal","Potência instalada","Frequência da rede","Anexo da NR-10: faixas de tensão × distâncias."],
+// Questões de Conhecimentos Gerais (Língua Portuguesa)
+["POR","No trecho 'Embora a automação exija investimento elevado, o retorno operacional é garantido', a conjunção sublinhada estabelece relação de:","Concessão","Causa","Consequência","Condição","A não ser que, 'embora' introduz ideia de concessão (oposição que não anula a oração principal)."],
+["POR","Assinale a opção em que a regência verbal atende à norma-padrão da Língua Portuguesa:","O engenheiro aspirava ao cargo de especialista.","Ele preferia mais o trabalho de campo do que o escritório.","A equipe obedeceu o regulamento de segurança.","Esta é a norma que o técnico se referiu.","Aspirar no sentido de desejar exige preposição 'a'. Preferir exige 'a' (preferia A a B). Obedecer exige 'a'."],
+["POR","A crase está empregada corretamente em:","O relatório foi entregue à diretoria da Transpetro.","O técnico começou à estudar o edital.","A reunião foi marcada à partir das 14h.","Ele fez referência à uma norma antiga.","'À diretoria' (preposição a + artigo a). Antes de verbo (estudar), expressão 'a partir' e artigo indefinido (uma) não ocorre crase."],
+// Questões de Conhecimentos Gerais (Língua Inglesa)
+["ING","In the sentence 'The circuit breaker tripped immediately due to an overload condition', the verb 'tripped' means:","Opened or disconnected the circuit","Closed the electrical connection","Recharged the battery system","Increased the supply voltage","In electrical engineering, 'to trip' means to automatically open a breaker to clear a fault or overload."],
+["ING","Choose the connective that correctly expresses a contrast in: 'The maintenance was rigorous; ____, a minor fault occurred.'","however","therefore","furthermore","instead","'However' introduces a contrast/adversative idea (no entanto/porém). 'Therefore' is conclusive."],
+["ING","In technical documentation, the term 'fault current' refers to:","An abnormal current flowing during an electrical short-circuit","The nominal working current of the motor","The reactive current supplied by capacitors","The current consumed during standby mode","'Fault current' is the current that flows during an insulation breakdown or short-circuit event."]
+];
+
+const QS=Q.map(r=>({t:r[0],q:r[1],a:r[2],w:[r[3],r[4],r[5]],e:r[6]}));
+
+/* Pares para a Forja de Fórmulas */
+const F=[
+  ["Lei de Ohm","V = R·I"],
+  ["Potência aparente","S = V·I"],
+  ["Reatância indutiva","XL = 2πfL"],
+  ["Reatância capacitiva","XC = 1/(2πfC)"],
+  ["Velocidade síncrona","ns = 120·f/p"],
+  ["Escorregamento","s = (ns − n)/ns"],
+  ["Impedância base","Zb = Vb²/Sb"],
+  ["Ganho inversor","Av = −Rf/Rin"],
+  ["Constante RC","τ = R·C"],
+  ["Potência trifásica","P = √3·VL·IL·cos φ"],
+  ["Fator de potência","FP = P/S"],
+  ["Ressonância série","f = 1/(2π√LC)"]
+];
+
+let S={};try{S=JSON.parse(localStorage.getItem("eq")||"{}")}catch(e){}
+S.xp=S.xp||0;
+S.stats=S.stats||{};
+Object.keys(TH).forEach(k=>{ if(!S.stats[k]) S.stats[k]={tot:0,ok:0}; });
+
+let currentStreak = 0;
+
+const save=()=>{try{localStorage.setItem("eq",JSON.stringify(S))}catch(e){}};
+const lvl=()=>Math.floor(S.xp/100)+1;
+
+const recordStat=(topic, isOk)=>{
+  if(!S.stats[topic]) S.stats[topic]={tot:0, ok:0};
+  S.stats[topic].tot++;
+  if(isOk) S.stats[topic].ok++;
+  save();
+};
+
+const gain=n=>{
+  let bonus = Math.floor(currentStreak / 3);
+  let totalGain = n + bonus;
+  S.xp+=totalGain;
+  save();
+  return totalGain;
+};
+
+const A=document.getElementById("app");
+let timer=null;const stop=()=>{clearInterval(timer);timer=null};
+const sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+const head=()=>`<div class="top"><b>⚡ Eletro Quest</b><div><span>${getRank(S.xp)}</span><span>Nv ${lvl()} · ${S.xp} XP</span></div></div>`;
+
+function menu(){
+  stop(); currentStreak=0;
+  A.innerHTML=head()+`<div class="card">
+    <span class="badge">Trilha da Aprovação Transpetro 2026.4</span>
+    <h3>⚔️ Batalha de Chefes</h3>
+    <p>Quiz RPG: escolha a matéria ou simulado completo (Específicos + Gerais):</p>
+    <div class="row">
+      <button class="prim" onclick="battle('*')">Simulado Completo</button>
+      <button onclick="battle('GERAIS')">Apenas Gerais (POR/ING)</button>
+      <button onclick="battle('ESPECIFICOS')">Apenas Específicos</button>
+    </div>
+    <div class="row" style="margin-top:8px;">
+      ${Object.keys(TH).map(k=>`<button onclick="battle('${k}')">${TH[k]}</button>`).join("")}
+    </div>
+  </div>
+  <div class="card"><h3>🃏 Forja de Fórmulas</h3><p>Jogo da memória: una cada conceito à sua fórmula.</p><button class="prim" onclick="memo()">Jogar</button></div>
+  <div class="card"><h3>🛡️ Defesa da Subestação</h3><p>Tower defense: falhas avançam pela linha. Responda a tempo para disparar a proteção.</p><button class="prim" onclick="td()">Jogar</button></div>
+  <div class="card"><h3>📊 Painel de Desempenho (Edital 2026.4)</h3><p>Verifique o cumprimento das notas de corte (Gerais e Específicos).</p><button onclick="showStats()">Ver Estatísticas</button></div>`;
+}
+
+/* Motor de perguntas reutilizável */
+function ask(box,q,n,done,showE){
+const o=sh([q.a,...sh(q.w).slice(0,n-1)]);
+box.innerHTML=`<p class="q"><small>${TH[q.t]}</small><br>${q.q}</p>`+o.map((x,i)=>`<button class="opt" data-i="${i}">${"ABCDE"[i]}) ${x}</button>`).join("");
+let d=0;
+box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(d)return;d=1;
+const ok=o[b.dataset.i]===q.a;
+box.querySelectorAll(".opt").forEach(c=>{if(o[c.dataset.i]===q.a)c.classList.add("ok")});
+if(!ok)b.classList.add("bad");
+if(showE)box.insertAdjacentHTML("beforeend",`<p class="ex">💡 ${q.e}</p>`);
+recordStat(q.t, ok);
+if(ok) currentStreak++; else currentStreak=0;
+done(ok)})
+}
+
+function fin(win,msg,baseXp){stop();
+let earned = 0;
+if(win && baseXp) earned = gain(baseXp);
+
+A.innerHTML=head()+`<div class="card"><h3>${win?"🏆 Vitória!":"💀 Derrota"}</h3><p>${msg}</p><p>${win?"+"+earned+" XP acumulados (Cargo: "+getRank(S.xp)+")":"Revise as explicações e tente de novo."}</p><button class="prim" onclick="menu()">Menu</button> <button onclick="showStats()">Ver Desempenho</button></div>`;
+}
+
+function showStats(){
+  stop();
+  let statsHtml = `<div class="card"><h3>📊 Painel de Desempenho e Alertas do Edital</h3>`;
+  
+  // Cálculo do desempenho em Conhecimentos Gerais (POR + ING)
+  let totGerais = (S.stats['POR']?.tot || 0) + (S.stats['ING']?.tot || 0);
+  let okGerais = (S.stats['POR']?.ok || 0) + (S.stats['ING']?.ok || 0);
+  let pctGerais = totGerais > 0 ? Math.round((okGerais / totGerais) * 100) : 0;
+
+  // Cálculo de Conhecimentos Específicos (C + M + S + E + N)
+  let espKeys = ['C','M','S','E','N'];
+  let totEsp = espKeys.reduce((acc,k)=>(acc + (S.stats[k]?.tot || 0)), 0);
+  let okEsp = espKeys.reduce((acc,k)=>(acc + (S.stats[k]?.ok || 0)), 0);
+  let pctEsp = totEsp > 0 ? Math.round((okEsp / totEsp) * 100) : 0;
+
+  // Verificação das Regras de Eliminatória da Cesgranrio
+  let alertMsg = "";
+  if (totGerais > 0 || totEsp > 0) {
+    if (pctGerais < 50 || pctEsp < 50 || (S.stats['POR']?.tot > 0 && S.stats['POR']?.ok === 0) || (S.stats['ING']?.tot > 0 && S.stats['ING']?.ok === 0)) {
+      alertMsg = `<div class="alert-box bad">⚠️ <strong>Aviso do Edital Transpetro:</strong> O seu desempenho atual resultaria em ELIMINAÇÃO. Lembre-se: é necessário no mínimo 50% em Gerais, 50% em Específicos e não zerar nenhuma matéria de Gerais.</div>`;
+    } else {
+      alertMsg = `<div class="alert-box good">✅ <strong>Aprovado na Nota de Corte Mínima!</strong> Mantenha a constância nos simulados para alcançar o topo da classificação.</div>`;
+    }
+  }
+  statsHtml += alertMsg;
+
+  statsHtml += `<p><strong>Desempenho por Matéria:</strong></p>`;
+  let entries = Object.keys(TH).map(k=>{
+    let st = S.stats[k] || {tot:0, ok:0};
+    let pct = st.tot > 0 ? Math.round((st.ok / st.tot) * 100) : 0;
+    return {code: k, name: TH[k], tot: st.tot, ok: st.ok, pct: pct};
+  });
+
+  entries.sort((a,b) => {
+    if(a.tot === 0 && b.tot === 0) return 0;
+    if(a.tot === 0) return 1;
+    if(b.tot === 0) return -1;
+    return a.pct - b.pct;
+  });
+
+  entries.forEach(e => {
+    let badClass = e.pct < 50 && e.tot > 0 ? "bad" : "";
+    statsHtml += `<div style="margin: 10px 0;">
+      <div class="stat-bar">
+        <span><b>${e.name}</b> (${e.ok}/${e.tot} acertos)</span>
+        <span><b>${e.pct}%</b></span>
+      </div>
+      <div class="stat-track"><div class="stat-fill ${badClass}" style="width:${e.pct}%"></div></div>
+    </div>`;
+  });
+
+  statsHtml += `<button class="prim" onclick="menu()" style="margin-top:14px;">Voltar ao Menu</button></div>`;
+  A.innerHTML = head() + statsHtml;
+}
+
+/* Mecânica 1: Batalha de Chefes */
+function battle(k){
+  stop(); currentStreak=0;
+  let pool = [];
+  if(k === "*") {
+    pool = QS;
+  } else if(k === "GERAIS") {
+    pool = QS.filter(x => ["POR","ING"].includes(x.t));
+  } else if(k === "ESPECIFICOS") {
+    pool = QS.filter(x => ["C","M","S","E","N"].includes(x.t));
+  } else {
+    pool = QS.filter(x => x.t == k);
+  }
+
+  let st={p:100,m:100,q:[]};
+  const nx=()=>{if(!st.q.length)st.q=sh(pool);return st.q.pop()};
+  const name= MON[k] || (k=="*" ? "Chefe da Banca Cesgranrio" : "Oponente do Edital");
+
+  const draw=()=>{
+  A.innerHTML=head()+`<div class="card"><div class="bars"><div>🧑‍🔧 Você (${currentStreak > 0 ? '🔥'+currentStreak+'x' : ''})<div class="bar"><i style="width:${st.p}%"></i></div></div><div>👹 ${name}<div class="bar"><i class="m" style="width:${st.m}%"></i></div></div></div><div id="box"></div><div id="nxt"></div></div>`;
+  ask(document.getElementById("box"),nx(),4,ok=>{
+  if(ok)st.m-=25;else st.p-=25;
+  const bars=document.querySelectorAll(".bar i");bars[0].style.width=Math.max(st.p,0)+"%";bars[1].style.width=Math.max(st.m,0)+"%";
+  const n=document.getElementById("nxt");
+  if(st.m<=0)return setTimeout(()=>fin(true,"Você derrotou "+name+"!",40),1800);
+  if(st.p<=0)return setTimeout(()=>fin(false,name+" venceu."),1800);
+  n.innerHTML=`<button class="prim" id="go">Próximo golpe ▶</button>`;document.getElementById("go").onclick=draw},true)};
+  draw();
+}
+
+/* Mecânica 2: Forja de Fórmulas */
+function memo(){stop(); currentStreak=0;
+const ps=sh(F).slice(0,6);
+const cards=sh(ps.flatMap((p,i)=>[{i,t:p[0],f:0},{i,t:p[1],f:1}]));
+let sel=null,found=0,tries=0,lock=0;
+A.innerHTML=head()+`<div class="card"><h3>🃏 Forja de Fórmulas</h3><p id="st">Tentativas: 0</p><div class="grid">`+cards.map((c,j)=>`<button class="cd" data-j="${j}">${c.t}</button>`).join("")+`</div><button onclick="menu()" style="margin-top:10px;">Voltar</button></div>`;
+document.querySelectorAll(".cd").forEach(b=>b.onclick=()=>{
+if(lock||b.classList.contains("done")||b===sel)return;
+if(!sel){sel=b;b.classList.add("sel");return}
+tries++;document.getElementById("st").textContent="Tentativas: "+tries;
+const a=cards[sel.dataset.j],c=cards[b.dataset.j],s0=sel;sel=null;s0.classList.remove("sel");
+if(a.i==c.i&&a.f!=c.f){s0.classList.add("done");b.classList.add("done");found++;
+if(found==6)setTimeout(()=>fin(true,"Todas as fórmulas forjadas em "+tries+" tentativas.",Math.max(10,40-(tries-6)*3)),700)}
+else{lock=1;s0.classList.add("no");b.classList.add("no");setTimeout(()=>{s0.classList.remove("no");b.classList.remove("no");lock=0},800)}})}
+
+/* Mecânica 3: Defesa da Subestação */
+function td(){stop(); currentStreak=0;
+let hp=100,kills=0,tick=0,E=[],spawned=0,cur=null,busy=0;const total=10,speed=0.22,L=6;
+A.innerHTML=head()+`<div class="card"><div id="hud"></div><div class="lane" id="lane"></div><div id="box"><p>Prepare-se...</p></div></div>`;
+const icons=["⚡","🔥","💥","🌀","☠️"];
+timer=setInterval(()=>{tick++;
+if(tick%7==1&&spawned<total){E.push({x:0,q:QS[Math.random()*QS.length|0],ic:icons[spawned%5]});spawned++}
+E.forEach(e=>e.x+=speed);
+const hit=E.filter(e=>e.x>=L);
+if(hit.length){hp-=20*hit.length;E=E.filter(e=>e.x<L);cur=null}
+if(hp<=0)return fin(false,"A subestação caiu. Eliminadas: "+kills+"/"+total+".");
+if(spawned==total&&!E.length)return fin(true,"Subestação protegida! Falhas eliminadas: "+kills+"/"+total+".",20+kills*3);
+document.getElementById("hud").innerHTML=`<div class="bars"><div>🏭 Subestação<div class="bar"><i style="width:${hp}%"></i></div></div><div>Falhas: ${kills}/${total}</div></div>`;
+document.getElementById("lane").innerHTML=E.map(e=>`<b style="left:${e.x/L*85}%">${e.ic}</b>`).join("")+`<b class="base">🏭</b>`;
+const f=E.slice().sort((a,b)=>b.x-a.x)[0];
+if(f&&f!==cur&&!busy){cur=f;ask(document.getElementById("box"),f.q,3,ok=>{busy=1;
+if(ok){E=E.filter(e=>e!==f);kills++}else{hp-=5;f.q=QS[Math.random()*QS.length|0]}
+setTimeout(()=>{busy=0;cur=null},1500)},true)}
+},1000)}
+menu();
+</script>
+</body>
+</html>

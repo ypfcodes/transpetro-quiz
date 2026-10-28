@@ -1,0 +1,786 @@
+[
+  {
+    "id": 1,
+    "categoria": "Teoria de Circuitos",
+    "enunciado": "Em um circuito CA senoidal trifásico equilibrado, uma carga conectada em triângulo (Δ) absorve uma potência ativa total de 12 kW com fator de potência 0,8 atrasado. A tensão de linha alimentadora é de 220 V eficazes. Se essa mesma carga for reconectada em estrela (Y) na mesma rede elétrica, a nova potência ativa total absorvida pelo circuito será de:",
+    "alternativas": {
+      "A": "4 kW",
+      "B": "6 kW",
+      "C": "12 kW",
+      "D": "20,8 kW",
+      "E": "36 kW"
+    },
+    "correta": "A",
+    "explicacao": "Na ligação Δ, a impedância por fase Z_Δ está submetida à tensão de linha VL. A potência é P_Δ = 3 · (VL^2 / |Z_Δ|) · cos(φ). Na ligação Y, a mesma impedância por fase fica submetida à tensão de fase VF = VL / √3. Assim, PY = P_Δ / 3 = 12 kW / 3 = 4 kW."
+  },
+  {
+    "id": 2,
+    "categoria": "Teoria de Circuitos",
+    "enunciado": "Um circuito RLC série alimentado por uma fonte de tensão senoidal v(t) = 100√2·sin(1000t) V possui R = 10 Ω, L = 20 mH e C = 50 μF. O fator de qualidade (Q) desse circuito ressonante e a corrente eficaz na frequência de ressonância são, respectivamente:",
+    "alternativas": {
+      "A": "Q = 2; I = 10 A",
+      "B": "Q = 0,5; I = 10 A",
+      "C": "Q = 2; I = 14,14 A",
+      "D": "Q = 5; I = 10 A",
+      "E": "Q = 1; I = 7,07 A"
+    },
+    "correta": "A",
+    "explicacao": "A frequência angular é ω = 1000 rad/s. XL = ω·L = 20 Ω e XC = 1/(ω·C) = 20 Ω. O fator de qualidade Q = XL / R = 20 / 10 = 2. Na ressonância, Z = R = 10 Ω, logo a corrente eficaz I = V / R = 100 / 10 = 10 A."
+  },
+  {
+    "id": 3,
+    "categoria": "Teoria de Circuitos",
+    "enunciado": "Considere um circuito elétrico composto por uma fonte de tensão CC ideal de 50 V em série com um chaveador, um resistor de 10 Ω e um indutor de 2 H desenergizado. No instante t = 0, a chave é fechada. A taxa de variação temporal da corrente (di/dt) no instante exato t = 0+ e o valor final da corrente em regime permanente são:",
+    "alternativas": {
+      "A": "0 A/s e 5 A",
+      "B": "25 A/s e 5 A",
+      "C": "25 A/s e 0 A",
+      "D": "50 A/s e 5 A",
+      "E": "10 A/s e 2,5 A"
+    },
+    "correta": "B",
+    "explicacao": "Em t = 0+, a corrente no indutor é zero. Toda a tensão cai sobre o indutor: vL(0+) = L·(di/dt) = 50 V ⇒ di/dt = 50 / 2 = 25 A/s. Em regime permanente, o indutor é um curto-circuito, logo I = 50 / 10 = 5 A."
+  },
+  {
+    "id": 4,
+    "categoria": "Teoria de Circuitos",
+    "enunciado": "Um circuito linear de dois terminais A e B alimenta uma carga resistiva variável RL. Sabendo que com RL = 10 Ω a tensão nos terminais A-B é 20 V, e com RL = 30 Ω a tensão nos terminais A-B passa para 30 V, os valores do equivalente de Thévenin (Vth e Rth) vistos a partir de A-B são:",
+    "alternativas": {
+      "A": "Vth = 40 V e Rth = 10 Ω",
+      "B": "Vth = 60 V e Rth = 20 Ω",
+      "C": "Vth = 40 V e Rth = 20 Ω",
+      "D": "Vth = 50 V e Rth = 15 Ω",
+      "E": "Vth = 30 V e Rth = 10 Ω"
+    },
+    "correta": "C",
+    "explicacao": "Utilizando o divisor de tensão: VL = Vth · (RL / (Rth + RL)). Montando o sistema com os dois casos, obtém-se Rth = 10 Ω e Vth = 40 V."
+  },
+  {
+    "id": 5,
+    "categoria": "Teoria de Circuitos",
+    "enunciado": "Em um sistema trifásico a quatro fios com sequência de fase positiva (ABC), as tensões de fase aplicadas a uma carga conectada em estrela são VAN = 120∠0° V, VBN = 120∠-120° V e VCN = 120∠120° V. A tensão de linha VAB é dada por:",
+    "alternativas": {
+      "A": "120∠30° V",
+      "B": "207,8∠30° V",
+      "C": "207,8∠-30° V",
+      "D": "120∠-30° V",
+      "E": "207,8∠0° V"
+    },
+    "correta": "B",
+    "explicacao": "VAB = VAN - VBN = 120∠0° - 120∠-120° = 207,85∠30° V."
+  },
+  {
+    "id": 6,
+    "categoria": "Teoria de Circuitos",
+    "enunciado": "Um capacitor não puramente dielétrico de 10 μF opera sob uma fonte senoidal de 100 V (eficaz) e frequência f = 500/π Hz. Sabendo que a potência ativa dissipada no capacitor devido às perdas no dielétrico é de 50 W, o fator de potência do dispositivo é igual a:",
+    "alternativas": {
+      "A": "0,05",
+      "B": "0,10",
+      "C": "0,50",
+      "D": "0,707",
+      "E": "0,866"
+    },
+    "correta": "A",
+    "explicacao": "Com ω = 1000 rad/s e XC = 100 Ω, a potência aparente S ≈ V^2 / XC = 1000 VA. O fator de potência FP = P / S = 50 / 1000 = 0,05."
+  },
+  {
+    "id": 7,
+    "categoria": "Teoria de Circuitos",
+    "enunciado": "A resposta em frequência de um filtro passivo possui a função de transferência H(s) = 100s / (s^2 + 10s + 10000). Trata-se de um filtro do tipo:",
+    "alternativas": {
+      "A": "Passa-baixas de 1ª ordem",
+      "B": "Passa-altas de 2ª ordem",
+      "C": "Passa-faixa de 2ª ordem",
+      "D": "Rejeita-faixa de 2ª ordem",
+      "E": "Passa-tudo de 2ª ordem"
+    },
+    "correta": "C",
+    "explicacao": "A presença de 's' no numerador e um polinômio de 2ª ordem no denominador caracteriza o filtro passa-faixa (band-pass)."
+  },
+  {
+    "id": 8,
+    "categoria": "Teoria de Circuitos",
+    "enunciado": "Determinado circuito possui uma impedância equivalente dada por Z(s) = (2s + 8) / (s + 1). Aplica-se a este circuito um degrau unitário de corrente i(t) = u(t) A. A expressão da tensão v(t) nos terminais do circuito para t > 0 é:",
+    "alternativas": {
+      "A": "v(t) = 8 + 6e^(-t) V",
+      "B": "v(t) = 2 + 6e^(-t) V",
+      "C": "v(t) = 8 - 6e^(-t) V",
+      "D": "v(t) = 2δ(t) + 6e^(-t) V",
+      "E": "v(t) = 6 + 2e^(-t) V"
+    },
+    "correta": "A",
+    "explicacao": "Expandindo em frações parciais V(s) = Z(s)/s = 8/s - 6/(s+1), aplicando a transformada inversa obtém-se v(t) = 8 - 6e^(-t) V."
+  },
+  {
+    "id": 9,
+    "categoria": "Teoria de Circuitos",
+    "enunciado": "Dois acoplamentos indutivos em série com indutâncias L1 = 4 H e L2 = 9 H possuem coeficiente de acoplamento magnético k = 0,5. A indutância equivalente da associação quando os enrolamentos estão em arranjo aditivo é:",
+    "alternativas": {
+      "A": "13 H",
+      "B": "16 H",
+      "C": "19 H",
+      "D": "25 H",
+      "E": "7 H"
+    },
+    "correta": "C",
+    "explicacao": "M = k·√(L1·L2) = 0,5·√36 = 3 H. Na ligação aditiva, Leq = L1 + L2 + 2M = 4 + 9 + 6 = 19 H."
+  },
+  {
+    "id": 10,
+    "categoria": "Teoria de Circuitos",
+    "enunciado": "Em relação aos teoremas fundamentais da análise de circuitos, analise o Teorema da Máxima Transferência de Potência em CA. A máxima potência ativa é transferida quando:",
+    "alternativas": {
+      "A": "RL = Rth e XL = Xth",
+      "B": "RL = Rth e XL = -Xth",
+      "C": "RL = √(Rth^2 + Xth^2) e XL = 0",
+      "D": "RL = 0 e XL = -Xth",
+      "E": "RL = Rth / 2 e XL = -Xth / 2"
+    },
+    "correta": "B",
+    "explicacao": "A impedância de carga deve ser o conjugado complexo da impedância de Thévenin: ZL = Zth*."
+  },
+  {
+    "id": 11,
+    "categoria": "Máquinas Elétricas",
+    "enunciado": "Um motor de indução trifásico de 6 polos, 60 Hz, opera com escorregamento de 5%. A frequência do rotor e a velocidade do eixo são:",
+    "alternativas": {
+      "A": "3 Hz e 1140 rpm",
+      "B": "6 Hz e 1200 rpm",
+      "C": "3 Hz e 1200 rpm",
+      "D": "60 Hz e 1140 rpm",
+      "E": "1,8 Hz e 1170 rpm"
+    },
+    "correta": "A",
+    "explicacao": "ns = 120·60 / 6 = 1200 rpm. Fr = 0,05·60 = 3 Hz. n = 1200·(1 - 0,05) = 1140 rpm."
+  },
+  {
+    "id": 12,
+    "categoria": "Máquinas Elétricas",
+    "enunciado": "Um transformador monofásico de 100 kVA, 10000/200 V, 60 Hz teve ensaio a vazio registrando 400 W e ensaio em curto-circuito na corrente nominal registrando 1000 W. As perdas no ferro e as perdas no cobre a plena carga são:",
+    "alternativas": {
+      "A": "1000 W e 400 W",
+      "B": "400 W e 1000 W",
+      "C": "400 W e 500 W",
+      "D": "1000 W e 1000 W",
+      "E": "2000 W e 400 W"
+    },
+    "correta": "B",
+    "explicacao": "Ensaio a vazio mede as perdas no ferro (400 W) e o ensaio em curto-circuito na corrente nominal mede as perdas no cobre (1000 W)."
+  },
+  {
+    "id": 13,
+    "categoria": "Máquinas Elétricas",
+    "enunciado": "O controle V/f constante em inversores de frequência para motores de indução busca manter inalterado o seguinte parâmetro:",
+    "alternativas": {
+      "A": "O escorregamento percentual",
+      "B": "O fluxo magnético no entreferro",
+      "C": "A corrente de estator",
+      "D": "A reatância de dispersão",
+      "E": "O fator de potência nominal"
+    },
+    "correta": "B",
+    "explicacao": "Manter V/f constante garante que o fluxo magnético no entreferro permaneça inalterado, evitando a saturação do núcleo."
+  },
+  {
+    "id": 14,
+    "categoria": "Máquinas Elétricas",
+    "enunciado": "Um gerador síncrono conectado a um barramento infinito tem sua corrente de excitação de campo aumentada. O efeito imediato é:",
+    "alternativas": {
+      "A": "Aumento da potência ativa fornecida e aumento da velocidade.",
+      "B": "Fornecimento de potência reativa capacitiva à rede.",
+      "C": "Fornecimento de potência reativa indutiva à rede.",
+      "D": "Diminuição da potência ativa fornecida.",
+      "E": "Aumento da frequência gerada."
+    },
+    "correta": "C",
+    "explicacao": "Sobre-excitar o gerador faz com que ele passe a fornecer potência reativa indutiva (comportamento de gerador de reativos, fator de potência atrasado)."
+  },
+  {
+    "id": 15,
+    "categoria": "Máquinas Elétricas",
+    "enunciado": "Um motor CC com excitação independente possui Ra = 0,5 Ω, alimentado por 200 V. A corrente em plena carga é 40 A. Reduzindo a carga para 10 A com fluxo constante, a variação da velocidade será de:",
+    "alternativas": {
+      "A": "Aumento de 8,3%",
+      "B": "Aumento de 15,0%",
+      "C": "Redução de 8,3%",
+      "D": "Aumento de 5,0%",
+      "E": "Redução de 5,0%"
+    },
+    "correta": "A",
+    "explicacao": "Ea1 = 200 - 20 = 180 V; Ea2 = 200 - 5 = 195 V. A razão n2/n1 = 195/180 ≈ 1,0833 (aumento de 8,3%)."
+  },
+  {
+    "id": 16,
+    "categoria": "Máquinas Elétricas",
+    "enunciado": "Três transformadores monofásicos de 50 kVA, 13800/220 V são conectados em Δ-Y. A relação entre a tensão de linha do primário e a do secundário é:",
+    "alternativas": {
+      "A": "62,7",
+      "B": "36,2",
+      "C": "108,6",
+      "D": "20,8",
+      "E": "60,0"
+    },
+    "correta": "B",
+    "explicacao": "VL_pri / VL_sec = (13800) / (√3 · 220) = 13800 / 381,05 ≈ 36,22."
+  },
+  {
+    "id": 17,
+    "categoria": "Máquinas Elétricas",
+    "enunciado": "Qual método de partida para motores de indução proporciona a maior redução de corrente na rede para o mesmo torque de partida?",
+    "alternativas": {
+      "A": "Partida direta",
+      "B": "Chave Estrela-Triângulo",
+      "C": "Chave Compensadora (Autotransformador)",
+      "D": "Soft-starter por rampa de tensão",
+      "E": "Resistores em série com o estator"
+    },
+    "correta": "C",
+    "explicacao": "O autotransformador reduz a corrente da rede pelo quadrado da relação de tap, otimizando a relação torque/corrente."
+  },
+  {
+    "id": 18,
+    "categoria": "Máquinas Elétricas",
+    "enunciado": "A curva 'V' de um motor síncrono plota qual relação de variáveis com carga constante?",
+    "alternativas": {
+      "A": "Corrente de estator vs. velocidade",
+      "B": "Corrente de estator vs. corrente de campo",
+      "C": "Potência ativa vs. ângulo de carga",
+      "D": "Torque vs. escorregamento",
+      "E": "Tensão vs. reativa"
+    },
+    "correta": "B",
+    "explicacao": "A curva V relaciona a corrente de armadura (estator) com a corrente de campo (excitação)."
+  },
+  {
+    "id": 19,
+    "categoria": "Máquinas Elétricas",
+    "enunciado": "O fenômeno do 'cogging' (trancamento) em motores de indução ocorre devido a:",
+    "alternativas": {
+      "A": "Harmônicos de espaço decorrentes de ranhuras desfavoráveis do estator e do rotor.",
+      "B": "Saturação magnética nas cabeças de bobina.",
+      "C": "Desbalanceamento de tensões.",
+      "D": "Efeito pelicular.",
+      "E": "Oscilações de baixa frequência."
+    },
+    "correta": "A",
+    "explicacao": "Ocorre quando o número de ranhuras do estator e do rotor criam posições de relutância mínima que travam o rotor."
+  },
+  {
+    "id": 20,
+    "categoria": "Máquinas Elétricas",
+    "enunciado": "Para mitigar os efeitos da reação de armadura em máquinas CC, emprega-se:",
+    "alternativas": {
+      "A": "Enrolamentos de amortecimento.",
+      "B": "Polos de comutação (interpolos) e enrolamentos de compensação.",
+      "C": "Resistores em paralelo.",
+      "D": "Aumento do entreferro.",
+      "E": "Inversão do campo."
+    },
+    "correta": "B",
+    "explicacao": "Interpolos e enrolamentos de compensação anulam a magnetização transversal indesejada da armadura."
+  },
+  {
+    "id": 21,
+    "categoria": "Sistemas de Potência (Componentes Simétricas/Faltas)",
+    "enunciado": "Um conjunto de correntes desequilibradas é Ia = 10∠0° A, Ib = 0 A e Ic = 0 A. A componente de sequência zero é:",
+    "alternativas": {
+      "A": "10∠0° A",
+      "B": "3,33∠0° A",
+      "C": "5,77∠30° A",
+      "D": "0 A",
+      "E": "3,33∠120° A"
+    },
+    "correta": "B",
+    "explicacao": "Ia0 = (1/3)·(Ia + Ib + Ic) = 10 / 3 = 3,33∠0° A."
+  },
+  {
+    "id": 22,
+    "categoria": "Sistemas de Potência (Componentes Simétricas/Faltas)",
+    "enunciado": "Em um curto-circuito monofásico à terra sólido na fase A nos terminais de um gerador, as redes de sequência se interconectam em:",
+    "alternativas": {
+      "A": "Paralelo",
+      "B": "Série",
+      "C": "Paralelo com zero aberta",
+      "D": "Apenas positiva",
+      "E": "Série sem negativa"
+    },
+    "correta": "B",
+    "explicacao": "Para falta monofásica à terra, as três redes de sequência (positiva, negativa e zero) são conectadas em série."
+  },
+  {
+    "id": 23,
+    "categoria": "Sistemas de Potência (Componentes Simétricas/Faltas)",
+    "enunciado": "Com Z1 = j0,15 pu, Z2 = j0,15 pu e Z0 = j0,05 pu, o curto trifásico e a falta monofásica à terra em pu são:",
+    "alternativas": {
+      "A": "6,67 pu e 8,57 pu",
+      "B": "6,67 pu e 6,67 pu",
+      "C": "5,00 pu e 6,67 pu",
+      "D": "6,67 pu e 20,0 pu",
+      "E": "3,33 pu e 10,0 pu"
+    },
+    "correta": "A",
+    "explicacao": "Icc3f = 1,0 / 0,15 = 6,67 pu. Falta monofásica: Ia = 3·(1,0 / (0,15+0,15+0,05)) = 3 / 0,35 = 8,57 pu."
+  },
+  {
+    "id": 24,
+    "categoria": "Sistemas de Potência (Componentes Simétricas/Faltas)",
+    "enunciado": "Um transformador com Yn no primário e d no secundário apresenta qual comportamento para correntes de sequência zero?",
+    "alternativas": {
+      "A": "Circula livremente para a rede externa do secundário.",
+      "B": "Bloqueia em ambos os lados.",
+      "C": "Circula no primário (via neutro) e circula internamente no triângulo do secundário, sem ir para fora.",
+      "D": "Impedância zero infinita.",
+      "E": "Transforma em sequência negativa."
+    },
+    "correta": "C",
+    "explicacao": "O neutro aterrado permite a entrada de sequência zero, que circula em malha fechada no triângulo do secundário sem alimentar a rede externa."
+  },
+  {
+    "id": 25,
+    "categoria": "Sistemas de Potência (Componentes Simétricas/Faltas)",
+    "enunciado": "Em uma matriz Ybus de 3 barras, Y11 = -j10 pu, Y12 = j5 pu e Y13 = j3 pu. A admitância do elemento shunt na Barra 1 é:",
+    "alternativas": {
+      "A": "-j2 pu",
+      "B": "-j18 pu",
+      "C": "j2 pu",
+      "D": "-j10 pu",
+      "E": "0 pu"
+    },
+    "correta": "A",
+    "explicacao": "Y11 = y10 + y12 + y13 ⇒ -j10 = y10 - j5 - j3 ⇒ y10 = -j2 pu."
+  },
+  {
+    "id": 26,
+    "categoria": "Sistemas de Potência (Componentes Simétricas/Faltas)",
+    "enunciado": "Em um curto-circuito bifásico entre B e C sem terra, a relação entre as correntes de sequência positiva (Ia1) e negativa (Ia2) é:",
+    "alternativas": {
+      "A": "Ia1 = Ia2",
+      "B": "Ia1 = -Ia2",
+      "C": "Ia1 = 2·Ia2",
+      "D": "Ia1 = 0",
+      "E": "Ia2 = 0"
+    },
+    "correta": "B",
+    "explicacao": "Como Ia = 0 e não há componente de sequência zero, tem-se Ia1 + Ia2 = 0 ⇒ Ia1 = -Ia2."
+  },
+  {
+    "id": 27,
+    "categoria": "Sistemas de Potência (Componentes Simétricas/Faltas)",
+    "enunciado": "Com Sbase = 100 MVA e Vbase = 115 kV, a impedância de base é:",
+    "alternativas": {
+      "A": "132,25 Ω",
+      "B": "115,00 Ω",
+      "C": "1,32 Ω",
+      "D": "1322,5 Ω",
+      "E": "86,9 Ω"
+    },
+    "correta": "A",
+    "explicacao": "Zbase = Vbase^2 / Sbase = 115^2 / 100 = 132,25 Ω."
+  },
+  {
+    "id": 28,
+    "categoria": "Sistemas de Potência (Componentes Simétricas/Faltas)",
+    "enunciado": "No fluxo de carga por Gauss-Seidel, em uma barra PV (Geração), quais variáveis são prefixadas e quais são calculadas?",
+    "alternativas": {
+      "A": "Prefixadas: P e Q; Calculadas: |V| e θ",
+      "B": "Prefixadas: P e |V|; Calculadas: Q e θ",
+      "C": "Prefixadas: |V| e θ; Calculadas: P e Q",
+      "D": "Prefixadas: Q e |V|; Calculadas: P e θ",
+      "E": "Prefixadas: P e θ; Calculadas: Q e |V|"
+    },
+    "correta": "B",
+    "explicacao": "Na barra PV fixa-se a potência ativa (P) e a magnitude da tensão (|V|), calculando-se o ângulo (θ) e a potência reativa (Q)."
+  },
+  {
+    "id": 29,
+    "categoria": "Sistemas de Potência (Componentes Simétricas/Faltas)",
+    "enunciado": "O Efeito Ferranti em linhas longas em vazio consiste no:",
+    "alternativas": {
+      "A": "Aumento de curto-circuito.",
+      "B": "Aumento da tensão no receptor em relação ao transmissor.",
+      "C": "Queda drástica de fator de potência.",
+      "D": "Aumento da resistência efetiva.",
+      "E": "Surgimento de harmônicos."
+    },
+    "correta": "B",
+    "explicacao": "Devido à corrente capacitiva fluindo pela reatância indutiva da linha, a tensão na ponta receptora fica maior que na transmissora."
+  },
+  {
+    "id": 30,
+    "categoria": "Sistemas de Potência (Componentes Simétricas/Faltas)",
+    "enunciado": "Uma linha de 500 kV possui impedância característica Zc = 400 Ω. A Potência Natural (SIL) é:",
+    "alternativas": {
+      "A": "625 MW",
+      "B": "1250 MW",
+      "C": "312,5 MW",
+      "D": "2000 MW",
+      "E": "500 MW"
+    },
+    "correta": "A",
+    "explicacao": "SIL = V^2 / Zc = 500^2 / 400 = 625 MW."
+  },
+  {
+    "id": 31,
+    "categoria": "Instalações e Subestações",
+    "enunciado": "Segundo a NBR 5410, o esquema de aterramento com neutro da fonte aterrado e massas em eletrodos distintos é o:",
+    "alternativas": {
+      "A": "TN-S",
+      "B": "TN-C",
+      "C": "TT",
+      "D": "IT",
+      "E": "TN-C-S"
+    },
+    "correta": "C",
+    "explicacao": "No esquema TT, a alimentação e as massas possuem aterramentos independentes."
+  },
+  {
+    "id": 32,
+    "categoria": "Instalações e Subestações",
+    "enunciado": "Conforme a ABNT NBR ISO/CIE 8995-1, o Índice de Reprodução de Cor (IRC) mínimo para locais de trabalho de precisão é:",
+    "alternativas": {
+      "A": "40",
+      "B": "60",
+      "C": "80",
+      "D": "20",
+      "E": "100"
+    },
+    "correta": "C",
+    "explicacao": "Para áreas de trabalho contínuo, o IRC mínimo exigido é de 80."
+  },
+  {
+    "id": 33,
+    "categoria": "Instalações e Subestações",
+    "enunciado": "Qual arranjo de barramento oferece a MAIOR flexibilidade operacional, permitindo retirar qualquer disjuntor sem interromper circuitos?",
+    "alternativas": {
+      "A": "Barramento Simples",
+      "B": "Barramento Duplo",
+      "C": "Disjuntor e Meio (1 ½ disjuntor)",
+      "D": "Principal e Transferência",
+      "E": "Em Anel"
+    },
+    "correta": "C",
+    "explicacao": "O arranjo de disjuntor e meio assegura alta confiabilidade e flexibilidade sem interrupções em manutenções."
+  },
+  {
+    "id": 34,
+    "categoria": "Instalações e Subestações",
+    "enunciado": "Conforme a NBR 14039, a proteção contra faltas fase-terra em média tensão é realizada por:",
+    "alternativas": {
+      "A": "Relé de Distância (21)",
+      "B": "Relé de Sobrecorrente de Neutro / Terra (50N/51N)",
+      "C": "Relé de Sobre-tensão (59)",
+      "D": "Relé de Subfrequência (81)",
+      "E": "Relé de Sincronismo (25)"
+    },
+    "correta": "B",
+    "explicacao": "Os relés 50N/51N monitoram o circuito de neutro/sequência zero para faltas à terra."
+  },
+  {
+    "id": 35,
+    "categoria": "Instalações e Subestações",
+    "enunciado": "A principal propriedade do gás SF6 em disjuntores e subestações GIS é:",
+    "alternativas": {
+      "A": "Alta condutividade térmica.",
+      "B": "Alta rigidez dielétrica e forte capacidade de extinção de arco (gás eletronegativo).",
+      "C": "Baixa densidade e inflamabilidade.",
+      "D": "Propriedades lubrificantes.",
+      "E": "Absorção de umidade."
+    },
+    "correta": "B",
+    "explicacao": "O SF6 possui excelente rigidez dielétrica e captura elétrons livres, extinguindo arcos rapidamente."
+  },
+  {
+    "id": 36,
+    "categoria": "Instalações e Subestações",
+    "enunciado": "A sequência correta das etapas iniciais da desenergização conforme a NR-10 é:",
+    "alternativas": {
+      "A": "Sinalização -> Aterramento -> Seccionamento",
+      "B": "Seccionamento -> Impedimento de reenergização -> Constatação de tensão -> Aterramento temporário",
+      "C": "Constatação de tensão -> Seccionamento -> Aterramento",
+      "D": "Aterramento -> Tensão -> Seccionamento",
+      "E": "Impedimento -> Seccionamento -> Sinalização"
+    },
+    "correta": "B",
+    "explicacao": "Passos da NR-10: 1. Seccionamento; 2. Impedimento; 3. Ausência de tensão; 4. Aterramento temporário."
+  },
+  {
+    "id": 37,
+    "categoria": "Instalações e Subestações",
+    "enunciado": "O fator de correção de agrupamento (fg) aplicado a cabos elétricos em eletrodutos tem o efeito de:",
+    "alternativas": {
+      "A": "Aumentar a ampacidade.",
+      "B": "Reduzir a capacidade de condução de corrente devido ao aquecimento mútuo.",
+      "C": "Aumentar a queda de tensão.",
+      "D": "Alterar a suportabilidade de curto.",
+      "E": "Substituir o condutor de proteção."
+    },
+    "correta": "B",
+    "explicacao": "O agrupamento gera calor adicional, exigindo a redução da corrente admissível do cabo."
+  },
+  {
+    "id": 38,
+    "categoria": "Instalações e Subestações",
+    "enunciado": "O Método das Malhas (Gaiola de Faraday) na NBR 5419 baseia-se em:",
+    "alternativas": {
+      "A": "Mastros do tipo Franklin.",
+      "B": "Esfera rolante.",
+      "C": "Rede de condutores em malha quadriculada na cobertura e fachadas.",
+      "D": "Supressores de surto.",
+      "E": "Isoladores de topo."
+    },
+    "correta": "C",
+    "explicacao": "A Gaiola de Faraday protege a estrutura através de uma malha quadriculada de condutores."
+  },
+  {
+    "id": 39,
+    "categoria": "Instalações e Subestações",
+    "enunciado": "Em um TC de proteção especificado como 500/5 A, 10P20, o número '20' significa:",
+    "alternativas": {
+      "A": "Carga de 20 VA.",
+      "B": "O erro composto limite é mantido até 20 vezes a corrente nominal primária.",
+      "C": "Defasagem de 20 minutos.",
+      "D": "Corrente de curto de 20 kA.",
+      "E": "Tensão de saturação de 20 V."
+    },
+    "correta": "B",
+    "explicacao": "O número 20 representa o Fator Limite de Precisão (ALF), indicando que a exatidão é mantida até 20·In."
+  },
+  {
+    "id": 40,
+    "categoria": "Instalações e Subestações",
+    "enunciado": "O relé Buchholz é um dispositivo de proteção instalado especificamente em:",
+    "alternativas": {
+      "A": "Disjuntores principais de alta tensão.",
+      "B": "Tubulação entre o tanque principal do transformador e o conservador de óleo.",
+      "C": "Barramento de terra.",
+      "D": "T.Ps de medição.",
+      "E": "Quadros de corrente contínua."
+    },
+    "correta": "B",
+    "explicacao": "Detecta acúmulo de gases e fluxo anormal de óleo no transformador."
+  },
+  {
+    "id": 41,
+    "categoria": "Automação e Controle",
+    "enunciado": "Para G(s)H(s) = K / [s(s+2)(s+5)], o número de assíntotas do LGR e seus ângulos são:",
+    "alternativas": {
+      "A": "2 assíntotas; ±90°",
+      "B": "3 assíntotas; 60°, 180° e 300°",
+      "C": "3 assíntotas; 45°, 135° e 225°",
+      "D": "4 assíntotas; 45°, 135°, 225° e 315°",
+      "E": "1 assíntota; 180°"
+    },
+    "correta": "B",
+    "explicacao": "P-Z = 3 - 0 = 3 assíntotas com ângulos a 60°, 180° e 300°."
+  },
+  {
+    "id": 42,
+    "categoria": "Automação e Controle",
+    "enunciado": "Dada a equação s^4 + 2s^3 + 3s^2 + 4s + K = 0, pelo critério de Routh-Hurwitz, para estabilidade, K deve pertencer ao intervalo:",
+    "alternativas": {
+      "A": "0 < K < 3",
+      "B": "0 < K < 2",
+      "C": "K > 4",
+      "D": "0 < K < 10",
+      "E": "K < 0"
+    },
+    "correta": "B",
+    "explicacao": "Aplicando Routh-Hurwitz, obtém-se a condição 4 - 2K > 0 ⇒ K < 2 (além de K > 0)."
+  },
+  {
+    "id": 43,
+    "categoria": "Automação e Controle",
+    "enunciado": "Em um controlador PID ideal, a inclusão da ação derivativa (Kd) tem como objetivo principal:",
+    "alternativas": {
+      "A": "Eliminar o erro em regime permanente.",
+      "B": "Melhorar a estabilidade relativa e reduzir o sobressinal (overshoot).",
+      "C": "Filtrar ruídos de alta frequência.",
+      "D": "Aumentar a ordem do sistema.",
+      "E": "Evitar saturação."
+    },
+    "correta": "B",
+    "explicacao": "A ação derivativa antecipa tendências de erro, aumentando o amortecimento e reduzindo o sobressinal."
+  },
+  {
+    "id": 44,
+    "categoria": "Automação e Controle",
+    "enunciado": "Para a matriz de estados A = [[0, 1], [-6, -5]], os autovalores (polos) do sistema são:",
+    "alternativas": {
+      "A": "s1 = -2 e s2 = -3",
+      "B": "s1 = 0 e s2 = -5",
+      "C": "s1 = 1 e s2 = 6",
+      "D": "s1 = -1 e s2 = -6",
+      "E": "s1 = 2 e s2 = 3"
+    },
+    "correta": "A",
+    "explicacao": "det(sI - A) = s^2 + 5s + 6 = (s+2)(s+3) = 0 ⇒ s = -2 e s = -3."
+  },
+  {
+    "id": 45,
+    "categoria": "Automação e Controle",
+    "enunciado": "O protocolo industrial Modbus RTU utiliza como meio físico e codificação padrão:",
+    "alternativas": {
+      "A": "Ethernet TCP/IP.",
+      "B": "Serial RS-485 com dados binários e checagem CRC.",
+      "C": "Paralelo de 8 bits.",
+      "D": "4-20 mA modulado.",
+      "E": "Wireless 2.4 GHz."
+    },
+    "correta": "B",
+    "explicacao": "Modbus RTU emprega barramento serial RS-485 com transmissão binária compacta e CRC-16."
+  },
+  {
+    "id": 46,
+    "categoria": "Automação e Controle",
+    "enunciado": "Conforme a norma IEC 61131-3, qual linguagem de CLP é gráfica baseada em diagramas elétricos de relés?",
+    "alternativas": {
+      "A": "Texto Estruturado (ST)",
+      "B": "Lista de Instruções (IL)",
+      "C": "Diagrama Ladder (LD)",
+      "D": "SFC",
+      "E": "FBD"
+    },
+    "correta": "C",
+    "explicacao": "O Diagrama Ladder (LD) simula visualmente circuitos lógicos de relés."
+  },
+  {
+    "id": 47,
+    "categoria": "Automação e Controle",
+    "enunciado": "Se a fase do sistema na frequência de cruzamento de ganho (ωcg) for -135°, a Margem de Fase (MF) é:",
+    "alternativas": {
+      "A": "45°",
+      "B": "-45°",
+      "C": "135°",
+      "D": "315°",
+      "E": "90°"
+    },
+    "correta": "A",
+    "explicacao": "MF = 180° + (-135°) = 45°."
+  },
+  {
+    "id": 48,
+    "categoria": "Automação e Controle",
+    "enunciado": "Um sensor de 4 a 20 mA mede pressão de 0 a 10 bar. Lendo 12 mA no CLP, a pressão correspondente é:",
+    "alternativas": {
+      "A": "6,0 bar",
+      "B": "5,0 bar",
+      "C": "4,0 bar",
+      "D": "7,5 bar",
+      "E": "2,5 bar"
+    },
+    "correta": "B",
+    "explicacao": "12 mA representa 50% do span (16 mA), o que corresponde a 5,0 bar na faixa de 0 a 10 bar."
+  },
+  {
+    "id": 49,
+    "categoria": "Automação e Controle",
+    "enunciado": "Para evitar aliasing ao amostrar um sinal com frequência máxima de 200 Hz, a taxa mínima de amostragem de Nyquist deve ser:",
+    "alternativas": {
+      "A": "100 Hz",
+      "B": "200 Hz",
+      "C": "400 Hz",
+      "D": "1000 Hz",
+      "E": "50 Hz"
+    },
+    "correta": "C",
+    "explicacao": "fs ≥ 2·fmax = 2·200 = 400 Hz."
+  },
+  {
+    "id": 50,
+    "categoria": "Automação e Controle",
+    "enunciado": "Para G(z) = 0,2 / (z - 0,8), o valor em regime permanente a um degrau unitário é:",
+    "alternativas": {
+      "A": "1,0",
+      "B": "0,2",
+      "C": "0,8",
+      "D": "Infinito",
+      "E": "0,5"
+    },
+    "correta": "A",
+    "explicacao": "Pelo Teorema do Valor Final: lim (z-1)·Y(z) = 0,2 / (1 - 0,8) = 1,0."
+  },
+  {
+    "id": 51,
+    "categoria": "Língua Portuguesa (Gerais)",
+    "enunciado": "No trecho 'Embora a automação exija investimento elevado, o retorno operacional é garantido', a conjunção sublinhada estabelece relação de:",
+    "alternativas": {
+      "A": "Concessão",
+      "B": "Causa",
+      "C": "Consequência",
+      "D": "Condição",
+      "E": "Proporção"
+    },
+    "correta": "A",
+    "explicacao": "'Embora' introduz oração subordinada concessiva, indicando ideia de oposição que não anula a principal."
+  },
+  {
+    "id": 52,
+    "categoria": "Língua Portuguesa (Gerais)",
+    "enunciado": "Assinale a opção em que a regência verbal atende à norma-padrão da Língua Portuguesa:",
+    "alternativas": {
+      "A": "O engenheiro aspirava ao cargo de especialista.",
+      "B": "Ele preferia mais o trabalho de campo do que o escritório.",
+      "C": "A equipe obedeceu o regulamento de segurança.",
+      "D": "Esta é a norma que o técnico se referiu.",
+      "E": "Visando o lucro, a empresa expandiu as operações."
+    },
+    "correta": "A",
+    "explicacao": "'Aspirar' no sentido de desejar exige preposição 'a' (aspirava ao cargo). 'Preferir' não aceita 'preferia mais... do que', e 'obedecer' e 'referir-se' exigem regência com 'a'."
+  },
+  {
+    "id": 53,
+    "categoria": "Língua Portuguesa (Gerais)",
+    "enunciado": "A crase está empregada corretamente em:",
+    "alternativas": {
+      "A": "O relatório foi entregue à diretoria da Transpetro.",
+      "B": "O técnico começou à estudar o edital.",
+      "C": "A reunião foi marcada à partir das 14h.",
+      "D": "Ele fez referência à uma norma antiga.",
+      "E": "Ficamos face à face com o problema."
+    },
+    "correta": "A",
+    "explicacao": "Ocorre crase diante de palavra feminina regida de preposição ('entregue a + a diretoria'). Antes de verbos, 'a partir' e artigos indefinidos não há crase."
+  },
+  {
+    "id": 54,
+    "categoria": "Língua Inglesa (Gerais)",
+    "enunciado": "In the sentence 'The circuit breaker tripped immediately due to an overload condition', the verb 'tripped' means:",
+    "alternativas": {
+      "A": "Opened or disconnected the circuit automatically",
+      "B": "Closed the electrical connection securely",
+      "C": "Recharged the internal battery system",
+      "D": "Increased the supply voltage level",
+      "E": "Shortened the cable duration"
+    },
+    "correta": "A",
+    "explicacao": "Em engenharia elétrica, 'to trip' significa abrir ou desarmar o circuito de forma automática por proteção."
+  },
+  {
+    "id": 55,
+    "categoria": "Língua Inglesa (Gerais)",
+    "enunciado": "Choose the connective that correctly expresses a contrast in: 'The maintenance procedure was rigorous; ____, a minor fault occurred.'",
+    "alternativas": {
+      "A": "however",
+      "B": "therefore",
+      "C": "furthermore",
+      "D": "instead",
+      "E": "consequently"
+    },
+    "correta": "A",
+    "explicacao": "'However' (no entanto/porém) exprime uma oposição/contraste entre as orações."
+  },
+  {
+    "id": 56,
+    "categoria": "Língua Inglesa (Gerais)",
+    "enunciado": "In technical documentation, the term 'fault current' refers to:",
+    "alternativas": {
+      "A": "An abnormal current flowing during an electrical short-circuit or breakdown",
+      "B": "The nominal working current specified for the motor",
+      "C": "The reactive current supplied by capacitor banks",
+      "D": "The current consumed during system standby mode",
+      "E": "The leakage current of standard insulators"
+    },
+    "correta": "A",
+    "explicacao": "'Fault current' traduz-se como corrente de falta, que é a corrente anormal decorrente de curtos-circuitos."
+  }
+]
